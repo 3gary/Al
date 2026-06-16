@@ -3,308 +3,421 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>مستشار القرار المالي الذكي</title>
+<title>منصة القرار المالي العقاري الاستراتيجي المتقدمة</title>
 
 <style>
 :root {
-  --bg-main: #020617;
-  --bg-card: #0f172a;
-  --border-color: #1f2937;
-  --text-main: #ffffff;
-  --text-muted: #94a3b8;
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
+  --bg-slate-950: #020617;
+  --bg-slate-900: #0f172a;
+  --bg-slate-800: #1e293b;
+  --border-slate-800: #1f2937;
+  --border-slate-700: #334155;
+  --text-emerald: #10b981;
+  --text-amber: #f59e0b;
+  --text-rose: #ef4444;
+  --text-sky: #3b82f6;
 }
 
 body {
-  background: var(--bg-main);
+  background-color: var(--bg-slate-950);
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  color: var(--text-main);
+  line-height: 1.5;
 }
 
-#bankApp {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 15px;
-  direction: rtl;
+#appContainer {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
 }
 
-* {
-  box-sizing: border-box;
+.header-brand {
+  text-align: center;
+  margin-bottom: 35px;
 }
 
-.grid-layout {
+.header-brand h1 {
+  font-size: 28px;
+  color: #f1f5f9;
+  margin-bottom: 8px;
+  font-weight: 800;
+}
+
+.header-brand p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 15px;
+}
+
+.dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 25px;
 }
 
-@media (max-width: 768px) {
-  .grid-layout {
+@media (max-width: 968px) {
+  .dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
 
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  padding: 24px;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.panel-card {
+  background: var(--bg-slate-900);
+  border: 1px solid var(--border-slate-800);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
 }
 
-.card-title {
-  margin-top: 0;
-  margin-bottom: 20px;
+.panel-title {
   font-size: 18px;
-  font-weight: 600;
-  color: #93c5fd;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-top: 0;
+  margin-bottom: 25px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-slate-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.input-group {
-  margin-bottom: 15px;
+.input-field-wrapper {
+  margin-bottom: 18px;
+  text-align: center;
 }
 
-.input-group label {
+.input-field-wrapper label {
   display: block;
+  font-size: 13px;
+  color: #94a3b8;
   margin-bottom: 8px;
-  font-size: 14px;
-  color: var(--text-muted);
+  font-weight: 500;
 }
 
-input {
+input, select {
   width: 100%;
-  padding: 14px;
+  padding: 14px 16px;
+  background: var(--bg-slate-950);
+  border: 2px solid var(--border-slate-700);
   border-radius: 12px;
-  border: 2px solid #334155;
-  background: #020617;
   color: #fff;
-  text-align: right;
   font-size: 16px;
-  transition: 0.3s ease;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.25s ease;
 }
 
-input:focus {
+input:focus, select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  border-color: var(--text-sky);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
-button {
+input::placeholder {
+  color: #475569;
+  text-align: center;
+}
+
+select option {
+  background: var(--bg-slate-900);
+  color: #fff;
+}
+
+/* زر التفعيل الرئيسي */
+.btn-action-primary {
   width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
   border: none;
-  border-radius: 14px;
   padding: 16px;
   font-size: 16px;
   font-weight: 700;
+  border-radius: 14px;
   cursor: pointer;
-  transition: .2s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.run {
-  background: #2563eb;
+.btn-action-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.btn-action-primary:active {
+  transform: translateY(0);
+}
+
+.btn-action-secondary {
+  width: 100%;
+  background: var(--bg-slate-800);
+  color: #cbd5e1;
+  border: 1px solid var(--border-slate-700);
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.btn-action-secondary:hover {
+  background: var(--border-slate-700);
   color: #fff;
 }
 
-.run:hover {
-  background: #1d4ed8;
-  transform: translateY(-1px);
+/* لوحة إصدار القرار الاستراتيجي */
+.decision-matrix-shield {
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+  line-height: 1.4;
 }
 
-.shareBtn {
+.shield-default { background: #1e293b; color: #64748b; border: 1px dashed #475569; }
+.shield-approved { background: rgba(16, 185, 129, 0.12); color: var(--text-emerald); border: 1px solid rgba(16, 185, 129, 0.3); }
+.shield-warning { background: rgba(245, 158, 11, 0.12); color: var(--text-amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+.shield-critical { background: rgba(239, 44, 44, 0.12); color: var(--text-rose); border: 1px solid rgba(239, 44, 44, 0.3); }
+
+/* شريط توزيع هيكل الميزانية */
+.budget-visualizer {
+  background: var(--bg-slate-950);
+  border: 1px solid var(--border-slate-800);
+  padding: 16px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.visualizer-lbl {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.bar-wrapper {
+  display: flex;
+  height: 28px;
+  background: #334155;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.seg-expenses { background-color: var(--text-rose); }
+.seg-housing { background-color: var(--text-sky); }
+.seg-savings { background-color: var(--text-emerald); }
+
+.bar-legends {
+  display: flex;
+  justify-content: space-around;
   margin-top: 12px;
-  color: #fff;
-  background: #1e293b;
-  border: 1px solid #334155;
+  font-size: 12px;
+}
+.legend-dot-item { display: flex; align-items: center; gap: 6px; color: #cbd5e1; }
+.indicator-circle { width: 12px; height: 12px; border-radius: 4px; }
+
+/* جداول تفصيل التقارير */
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--border-slate-800);
+}
+
+.data-row:last-of-type {
+  border-bottom: none;
+}
+
+.data-row span {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.data-row strong {
+  font-size: 16px;
+  color: #f1f5f9;
+}
+
+/* الحاوية الهندسية العكسية - سيناريوهات التخفيف */
+.re-engineering-box {
+  margin-top: 25px;
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid var(--border-slate-700);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.re-engineering-title {
+  color: #60a5fa;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
 
-.shareBtn:hover {
-  background: #334155;
-}
-
-/* لوحة القرار الحاسم */
-.decision-badge {
-  padding: 15px;
-  border-radius: 14px;
-  text-align: center;
-  font-size: 20px;
-  font-weight: 800;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
-}
-
-.decision-badge.initial { background: #1e293b; color: var(--text-muted); }
-.decision-badge.good { background: rgba(16, 185, 129, 0.15); color: var(--color-success); border: 1px solid var(--color-success); }
-.decision-badge.mid { background: rgba(245, 158, 11, 0.15); color: var(--color-warning); border: 1px solid var(--color-warning); }
-.decision-badge.bad { background: rgba(239, 68, 68, 0.15); color: var(--color-danger); border: 1px solid var(--color-danger); }
-
-/* التوزيع المرئي للراتب */
-.salary-distribution {
-  margin: 20px 0;
-}
-.dist-title {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-}
-.progress-bar-container {
-  display: flex;
-  height: 24px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #334155;
-}
-.progress-part {
-  transition: width 0.5s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: bold;
-  color: #fff;
-}
-.part-expenses { background: #ef4444; }
-.part-loan { background: #3b82f6; }
-.part-remain { background: #10b981; }
-
-.legend {
-  display: flex;
-  gap: 15px;
-  margin-top: 8px;
-  font-size: 12px;
-  justify-content: center;
-}
-.legend-item { display: flex; align-items: center; gap: 5px; }
-.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-
-/* تفاصيل البيانات */
-.box {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 0;
-  border-bottom: 1px solid #1f2937;
-  font-size: 15px;
-}
-.box span { color: var(--text-muted); }
-.box b { color: var(--text-main); }
-
-/* البدائل الذكية وماذا لو */
-.what-if-container {
-  margin-top: 20px;
-  background: #1e293b;
-  border-radius: 14px;
-  padding: 16px;
-  border: 1px dashed #3b82f6;
-}
-.what-if-title {
-  color: #60a5fa;
-  font-size: 14px;
-  font-weight: bold;
+.scenario-card {
+  background: rgba(2, 6, 23, 0.4);
+  border: 1px solid var(--border-slate-800);
+  padding: 12px 14px;
+  border-radius: 10px;
   margin-bottom: 10px;
-}
-.what-if-item {
   font-size: 13px;
   line-height: 1.6;
   color: #cbd5e1;
-  margin-bottom: 8px;
+  text-align: right;
 }
+
+.scenario-card:last-child { margin-bottom: 0; }
+.text-highlight-green { color: var(--text-emerald); font-weight: 700; }
+.text-highlight-blue { color: #93c5fd; font-weight: 700; }
+.text-highlight-amber { color: var(--text-amber); font-weight: 700; }
 </style>
 </head>
 <body>
 
-<div id="bankApp">
-  <div class="grid-layout">
+<div id="appContainer">
+  
+  <div class="header-brand">
+    <h1>مُستشار القرار العقاري الاستراتيجي</h1>
+    <p>نظام الاستشراف المالي المتقدم للربط بين أمد التمويل وهيكل الدخل وسنوات التقاعد</p>
+  </div>
+
+  <div class="dashboard-grid">
     
-    <div class="card">
-      <div class="card-title">📝 بيانات العقار والطلب</div>
+    <!-- لوحة المدخلات البارامترية الموحدة والتوسيط الكامل -->
+    <div class="panel-card">
+      <div class="panel-title">📊 بارامترات التمويل والأصول</div>
       
-      <div class="input-group">
-        <label>قيمة العقار السوقية (ريال)</label>
-        <input id="loan" placeholder="مثال: 1,200,000" />
+      <div class="input-field-wrapper">
+        <label>هل العقار الحالي يمثل مسكنك الأول؟ (للإعفاء من الضريبة)</label>
+        <select id="inIsFirstHome">
+          <option value="yes">نعم - مشمول بالإعفاء الضريبي للمسكن الأول</option>
+          <option value="no">لا - غير مشمول (تطبيق ضريبة التصرفات العقارية 5%)</option>
+        </select>
       </div>
 
-      <div class="input-group">
-        <label>الدفعة الأولى المقدمة + الدعم (ريال)</label>
-        <input id="down" placeholder="مثال: 200,000" />
+      <div class="input-field-wrapper">
+        <label>القيمة السوقية الإجمالية للعقار (ريال)</label>
+        <input id="inPropertyAssetPrice" placeholder="مثال: 1,500,000" />
       </div>
 
-      <div class="input-group">
-        <label>الصافي الشهري للراتب (ريال)</label>
-        <input id="salary" placeholder="مثال: 15,000" />
+      <div class="input-field-wrapper">
+        <label>الدفعة النقدية الأولى + الدعم السكني المعجل (ريال)</label>
+        <input id="inDownPaymentCash" placeholder="مثال: 300,000" />
       </div>
 
-      <div class="input-group">
-        <label>الالتزامات الشهرية الحالية (سيارة/شخصي)</label>
-        <input id="expenses" placeholder="أدخل 0 إن لم يوجد" />
+      <div class="input-field-wrapper">
+        <label>المرتب الشهري الصافي المودع بالبنك حالياً (ريال)</label>
+        <input id="inNetMonthlySalary" placeholder="مثال: 18,500" />
       </div>
 
-      <div class="input-group">
-        <label>مدة التمويل المطلوبة (بالأشهر)</label>
-        <input id="months" placeholder="مثال: 240 (20 سنة)" />
+      <div class="input-field-wrapper">
+        <label>إجمالي الالتزامات الشهرية الحالية (شخصي / مركبة / فيزا)</label>
+        <input id="inActiveCurrentDebts" placeholder="أدخل 0 إذا لم توجد التزامات" />
       </div>
 
-      <div class="input-group">
-        <label>النسبة السنوية للربح APR (%)</label>
-        <input id="rate" placeholder="مثال: 4.5" />
+      <div class="input-field-wrapper">
+        <label>أجل التمويل المقترح بالأشهر (مدة العقد)</label>
+        <input id="inFinancingMonthsDuration" placeholder="مثال: 240 شهر (20 سنة)" />
       </div>
 
-      <button class="run" onclick="analyzeFinancialDecision()">
-        🧠 إرسال طلب استشارة وإصدار قرار
+      <div class="input-field-wrapper">
+        <label>عدد السنوات المتبقية لك في الخدمة حتى التقاعد (سنة)</label>
+        <input id="inYearsUntilRetirement" placeholder="مثال: 15" />
+      </div>
+
+      <div class="input-field-wrapper">
+        <label>معدل النسبة السنوية للمرابحة APR (%)</label>
+        <input id="inAnnualPercentageRate" placeholder="مثال: 4.25" />
+      </div>
+
+      <button class="btn-action-primary" onclick="executeComprehensiveFinancialAnalysis()">
+        🧠 معالجة البيانات وإصدار مصفوفة القرار
       </button>
 
-      <button class="shareBtn" onclick="shareResults()">
-        📤 نسخ تقرير القرار للطباعة
+      <button class="btn-action-secondary" onclick="exportExecutiveDecisionReport()">
+        📤 نسخ وثيقة التقرير التنفيذي للطباعة
       </button>
     </div>
 
-    <div class="card">
-      <div class="card-title">⚖️ وثيقة القرار المالي الاستشاري</div>
+    <!-- لوحة النتائج العميقة والسيناريوهات التفاعلية -->
+    <div class="panel-card">
+      <div class="panel-title">⚖️ وثيقة الأهلية والهندسة الموازية</div>
 
-      <div id="decisionBadge" class="decision-badge initial">
-        الرجاء تعبئة البيانات والضغط على تحليل
+      <!-- درع إصدار القرار الاستراتيجي الحاسم -->
+      <div id="decisionShieldDisplay" class="decision-matrix-shield shield-default">
+        الرجاء تعبئة البيانات بالكامل لبدء التحليل الهيكلي
       </div>
 
-      <div class="salary-distribution">
-        <div class="dist-title">📊 الهيكل المتوقع لراتبك الشهري بعد التمويل:</div>
-        <div class="progress-bar-container">
-          <div id="partExpenses" class="progress-part part-expenses" style="width: 0%"></div>
-          <div id="partLoan" class="progress-part part-part-loan part-loan" style="width: 0%"></div>
-          <div id="partRemain" class="progress-part part-remain" style="width: 0%"></div>
+      <!-- نظام المحاكاة المرئية لهيكل الميزانية القادم -->
+      <div class="budget-visualizer">
+        <div class="visualizer-lbl">📊 توزيع الدخل الشهري المتوقع بعد توقيع العقد (قبل التقاعد):</div>
+        <div class="bar-wrapper">
+          <div id="segmentDebts" class="bar-segment seg-expenses" style="width: 0%"></div>
+          <div id="segmentHousing" class="bar-segment seg-housing" style="width: 0%"></div>
+          <div id="segmentSavings" class="bar-segment seg-savings" style="width: 0%"></div>
         </div>
-        <div class="legend">
-          <div class="legend-item"><span class="dot part-expenses"></span>التزامات سابقة</div>
-          <div class="legend-item"><span class="dot part-loan"></span>قسط العقار الجديد</div>
-          <div class="legend-item"><span class="dot part-remain"></span>المعيشة الصافية</div>
+        <div class="bar-legends">
+          <div class="legend-dot-item"><span class="indicator-circle seg-expenses"></span>ديون سابقة</div>
+          <div class="legend-dot-item"><span class="indicator-circle seg-housing"></span>القسط السكني الجديد</div>
+          <div class="legend-dot-item"><span class="indicator-circle seg-savings"></span>الفائض الحر للمعيشة</div>
         </div>
       </div>
 
-      <div class="box"><span>صافي مبلغ التمويل المطلق:</span><b id="financed">0 ريال</b></div>
-      <div class="box"><span>القسط العقاري المقدر:</span><b id="monthly">0 ريال</b></div>
-      <div class="box"><span>إجمالي الفوائد والأرباح للبنك:</span><b id="interest">0 ريال</b></div>
-      <div class="box"><span>المبلغ الكلي لرد التمويل:</span><b id="total">0 ريال</b></div>
-      <div class="box"><span>نسبة الاستقطاع الإجمالية من الدخل:</span><b id="percent">0%</b></div>
-      <div class="box"><span>الفائض المتبقي للمعيشة والفواتير:</span><b id="remaining">0 ريال</b></div>
+      <!-- مخرجات الحسابات الدقيقة للكتلة النقدية -->
+      <div class="data-row"><span>صافي مبلغ التمويل المطلوب (أصل القرض):</span><strong id="outFinancedPrincipal">0 ريال</strong></div>
+      <div class="data-row"><span>القسط الشهري المترتب على العقار الجديد:</span><strong id="outMonthlyHousingInstallment">0 ريال</strong></div>
+      <div class="data-row"><span>إجمالي أرباح وفوائد جهة التمويل:</span><strong id="outCumulativeTotalInterest">0 ريال</strong></div>
+      <div class="data-row"><span>إجمالي الالتزام الرأسمالي المقفل السداد:</span><strong id="outGrandTotalRepayments">0 ريال</strong></div>
+      <div class="data-row"><span>نسبة الاستقطاع الإجمالية من الدخل الحالي:</span><strong id="outTotalDSRPercentage" style="color: #60a5fa;">0%</strong></div>
+      <div class="data-row"><span>الفائض المعيشي المتبقي قبل التقاعد:</span><strong id="outNetLiquidityRemaining">0 ريال</strong></div>
       
-      <div class="box">
-        <span>⚠️ كاش أولي مطلوب (الضريبة 5% + السعي 2.5%):</span>
-        <b id="hiddenCosts" style="color: #fca5a5;">0 ريال</b>
+      <!-- تحليل امتداد الدين لزمن التقاعد -->
+      <div class="data-row" id="retirementOverlapRow" style="display:none; background: rgba(245, 158, 11, 0.04); padding: 10px; border-radius: 8px;">
+        <span>⚠️ امتداد خطر الدين لزمن التقاعد:</span>
+        <strong id="outRetirementOverlapYears" style="color: var(--text-amber);">0 سنوات</strong>
+      </div>
+
+      <!-- كاش النفقات الأولية الرأسمالية الخفية -->
+      <div class="data-row" style="background: rgba(239, 68, 68, 0.04); padding: 14px 8px; border-radius: 8px;">
+        <span>⚠️ كاش أولي مطلوب فوراً (سعي مكتب + رسوم إدارية + ضريبة إن وجدت):</span>
+        <strong id="outHiddenCapitalFees" style="color: #fca5a5;">0 ريال</strong>
       </div>
       
-      <div class="box"><span>التاريخ المتوقع لانتهاء الأقساط:</span><b id="endDate">--</b></div>
+      <div class="data-row"><span>التاريخ التقريبي المقدر لإنهاء الالتزام العقاري:</span><strong id="outHijriTargetDate">--</strong></div>
 
-      <div id="whatIfSection" class="what-if-container" style="display: none;">
-        <div class="what-if-title">💡 سيناريوهات بديلة لتحسين القرار المالي:</div>
-        <div id="whatIfContent"></div>
+      <!-- المحاكي العكسي الذكي لحلول الأزمات ورسم المستقبل -->
+      <div id="reEngineeringSection" class="re-engineering-box" style="display: none;">
+        <div class="re-engineering-title">💡 سيناريوهات الهندسة العكسية لضمان سلامتك عند التقاعد:</div>
+        <div id="reEngineeringContent"></div>
       </div>
 
     </div>
@@ -313,170 +426,228 @@ button {
 </div>
 
 <script>
-const $ = id => document.getElementById(id);
+const getEl = id => document.getElementById(id);
 
-function parseMoney(v){ return parseFloat(String(v).replace(/,/g,'')) || 0; }
-function parseRate(v){ return parseFloat(String(v).replace(',', '.')) || 0; }
-function fmt(v){ return Math.round(v).toLocaleString('en-US'); }
+function parseNumericValue(value) { return parseFloat(String(value).replace(/,/g, '')) || 0; }
+function parseDecimalRate(value) { return parseFloat(String(value).replace(',', '.')) || 0; }
+function formatNumberToCurrency(value) { return Math.round(value).toLocaleString('en-US'); }
 
-function bindMoney(id){
-  const el=$(id);
-  el.addEventListener('input',()=>{
-    let v=el.value.replace(/[^0-9]/g,'');
-    v=v.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    el.value=v;
+function applyCurrencyFormattingMask(id) {
+  const element = getEl(id);
+  element.addEventListener('input', () => {
+    let raw = element.value.replace(/[^0-9]/g, '');
+    raw = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    element.value = raw;
   });
 }
 
-function bindRate(id){
-  const el=$(id);
-  el.addEventListener('input',()=>{
-    let v=el.value.replace(/[^0-9.,]/g,'');
-    v=v.replace(',', '.');
-    let p=v.split('.');
-    if(p.length>2) v=p[0]+'.'+p.slice(1).join('');
-    el.value=v;
+function applyRateFormattingMask(id) {
+  const element = getEl(id);
+  element.addEventListener('input', () => {
+    let raw = element.value.replace(/[^0-9.,]/g, '');
+    raw = raw.replace(',', '.');
+    let splitParts = raw.split('.');
+    if (splitParts.length > 2) raw = splitParts[0] + '.' + splitParts.slice(1).join('');
+    element.value = raw;
   });
 }
 
-['loan','down','salary','expenses','months'].forEach(bindMoney);
-bindRate('rate');
+['inPropertyAssetPrice', 'inDownPaymentCash', 'inNetMonthlySalary', 'inActiveCurrentDebts', 'inFinancingMonthsDuration', 'inYearsUntilRetirement'].forEach(applyCurrencyFormattingMask);
+applyRateFormattingMask('inAnnualPercentageRate');
 
-function analyzeFinancialDecision(){
-  const L = parseMoney($('loan').value);
-  const D = parseMoney($('down').value);
-  const S = parseMoney($('salary').value);
-  const E = parseMoney($('expenses').value);
-  const M = parseMoney($('months').value);
-  const R = parseRate($('rate').value) / 100;
+function executeComprehensiveFinancialAnalysis() {
+  const isFirstHome = getEl('inIsFirstHome').value;
+  const assetPrice = parseNumericValue(getEl('inPropertyAssetPrice').value);
+  const downPayment = parseNumericValue(getEl('inDownPaymentCash').value);
+  const monthlySalary = parseNumericValue(getEl('inNetMonthlySalary').value);
+  const currentDebts = parseNumericValue(getEl('inActiveCurrentDebts').value);
+  const totalMonths = parseNumericValue(getEl('inFinancingMonthsDuration').value);
+  const yearsUntilRetirement = parseNumericValue(getEl('inYearsUntilRetirement').value);
+  const aprRate = parseDecimalRate(getEl('inAnnualPercentageRate').value) / 100;
 
-  if(S === 0 || M === 0 || L === 0){
-    alert("الرجاء تعبئة الخانات الحيوية (قيمة العقار، الراتب، والمدة) لإصدار القرار.");
+  if (monthlySalary === 0 || totalMonths === 0 || assetPrice === 0 || yearsUntilRetirement === 0) {
+    alert("تنبيه: يرجى تعبئة كافة الحقول بما فيها (سنوات الخدمة المتبقية للتقاعد) لحماية مستقبلك وإصدار تقرير سليم.");
     return;
   }
 
-  // الحسابات المالية الأساسية
-  const financed = L - D;
-  const interest = financed * R * (M / 12);
-  const total = financed + interest;
-  const monthly = total / M;
-  const totalDebt = monthly + E;
-  const percent = (totalDebt / S) * 100;
-  const remaining = S - totalDebt;
+  // حسابات القرض والمدد الزمنية
+  const financedPrincipal = assetPrice - downPayment;
+  const cumulativeInterest = financedPrincipal * aprRate * (totalMonths / 12);
+  const grandTotalRepayments = financedPrincipal + cumulativeInterest;
+  const monthlyHousingInstallment = grandTotalRepayments / totalMonths;
   
-  // حساب الرسوم والأموال الإضافية (سعي وضريبة تصرفات عقارية)
-  const taxCost = L * 0.05;
-  const brokerCost = L * 0.025;
-  const totalHiddenCash = taxCost + brokerCost;
+  const aggregatedTotalMonthlyDebt = monthlyHousingInstallment + currentDebts;
+  const totalDSRPercentage = (aggregatedTotalMonthlyDebt / monthlySalary) * 100;
+  const netLiquidityRemaining = monthlySalary - aggregatedTotalMonthlyDebt;
 
-  // إخراج البيانات الأساسية إلى الـ واجهة
-  $('financed').textContent = fmt(financed) + " ريال";
-  $('monthly').textContent = fmt(monthly) + " ريال";
-  $('interest').textContent = fmt(interest) + " ريال";
-  $('total').textContent = fmt(total) + " ريال";
-  $('percent').textContent = percent.toFixed(1) + "%";
-  $('remaining').textContent = fmt(remaining) + " ريال";
-  $('hiddenCosts').textContent = fmt(totalHiddenCash) + " ريال";
+  const loanYearsDuration = totalMonths / 12;
+  const retirementOverlapYears = Math.max(0, loanYearsDuration - yearsUntilRetirement);
 
-  // حساب التواريخ الهجرية
-  if(M > 0){
-    const end = new Date();
-    end.setMonth(end.getMonth() + M);
-    const formatter = new Intl.DateTimeFormat('en-u-ca-islamic', {year:'numeric', month:'2-digit', day:'2-digit'});
-    $('endDate').textContent = formatter.format(end) + " هـ";
+  // حساب كاش النفقات الخفية بناءً على المسكن الأول
+  let realEstateTaxCost = (isFirstHome === 'no') ? assetPrice * 0.05 : 0;
+  const brokerageCommissionCost = assetPrice * 0.025; 
+  const adminAndEvaluationFees = 5000; 
+  const aggregateHiddenCapitalCash = realEstateTaxCost + brokerageCommissionCost + adminAndEvaluationFees;
+
+  // حقن البيانات المالية الأساسية في الواجهة
+  getEl('outFinancedPrincipal').textContent = formatNumberToCurrency(financedPrincipal) + " ريال";
+  getEl('outMonthlyHousingInstallment').textContent = formatNumberToCurrency(monthlyHousingInstallment) + " ريال";
+  getEl('outCumulativeTotalInterest').textContent = formatNumberToCurrency(cumulativeInterest) + " ريال";
+  getEl('outGrandTotalRepayments').textContent = formatNumberToCurrency(grandTotalRepayments) + " ريال";
+  getEl('outTotalDSRPercentage').textContent = totalDSRPercentage.toFixed(1) + "%";
+  getEl('outNetLiquidityRemaining').textContent = formatNumberToCurrency(netLiquidityRemaining) + " ريال";
+  getEl('outHiddenCapitalFees').textContent = formatNumberToCurrency(aggregateHiddenCapitalCash) + " ريال";
+
+  // تفعيل وإظهار فجوة التقاعد إن وجدت
+  if (retirementOverlapYears > 0) {
+    getEl('retirementOverlapRow').style.display = 'flex';
+    getEl('outRetirementOverlapYears').textContent = retirementOverlapYears.toFixed(1) + " سنة سداد بعد التقاعد";
+  } else {
+    getEl('retirementOverlapRow').style.display = 'none';
   }
 
-  // تحديث مخطط شريط الراتب
-  const expPct = Math.min((E / S) * 100, 100);
-  const loanPct = Math.min((monthly / S) * 100, 100 - expPct);
-  const remPct = Math.max(0, 100 - (expPct + loanPct));
+  // التواريخ الهجرية
+  if (totalMonths > 0) {
+    const calendarTarget = new Date();
+    calendarTarget.setMonth(calendarTarget.getMonth() + totalMonths);
+    const hijriFormatter = new Intl.DateTimeFormat('en-u-ca-islamic', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    getEl('outHijriTargetDate').textContent = hijriFormatter.format(calendarTarget) + " هـ";
+  }
 
-  $('partExpenses').style.width = expPct + "%";
-  $('partExpenses').textContent = expPct > 10 ? Math.round(expPct) + "%" : "";
-  $('partLoan').style.width = loanPct + "%";
-  $('partLoan').textContent = loanPct > 10 ? Math.round(loanPct) + "%" : "";
-  $('partRemain').style.width = remPct + "%";
-  $('partRemain').textContent = remPct > 10 ? Math.round(remPct) + "%" : "";
+  // شريط المحاكاة البصري
+  const segmentDebtsWeight = Math.min((currentDebts / monthlySalary) * 100, 100);
+  const segmentHousingWeight = Math.min((monthlyHousingInstallment / monthlySalary) * 100, 100 - segmentDebtsWeight);
+  const segmentSavingsWeight = Math.max(0, 100 - (segmentDebtsWeight + segmentHousingWeight));
 
-  // تقييم منطق القرار المالي
-  let decisionClass = 'initial';
-  let decisionText = '';
-  let whatIfHTML = '';
+  getEl('segmentDebts').style.width = segmentDebtsWeight + "%";
+  getEl('segmentDebts').textContent = segmentDebtsWeight > 8 ? Math.round(segmentDebtsWeight) + "%" : "";
+  getEl('segmentHousing').style.width = segmentHousingWeight + "%";
+  getEl('segmentHousing').textContent = segmentHousingWeight > 8 ? Math.round(segmentHousingWeight) + "%" : "";
+  getEl('segmentSavings').style.width = segmentSavingsWeight + "%";
+  getEl('segmentSavings').textContent = segmentSavingsWeight > 8 ? Math.round(segmentSavingsWeight) + "%" : "";
 
-  if (percent <= 45 && remaining >= 4000) {
-    decisionClass = 'good';
-    decisionText = '✅ قرار آمن: نوصي بالمضي قدماً في التمويل';
-    $('decisionBadge').className = `decision-badge ${decisionClass}`;
-    $('decisionBadge').textContent = decisionText;
-    $('whatIfSection').style.display = 'none';
+  // مصفوفة اتخاذ القرار الذكي الحاسم وربطه بالتقاعد
+  let shieldClass = 'shield-default';
+  let shieldText = '';
+  let scenariosHTML = '';
+
+  // التنبؤ بانخفاض الراتب التقاعدي تقريبياً لـ 70% للوقوف على الخطر المعيشي القادم
+  const estimatedRetirementSalary = monthlySalary * 0.70;
+  const estimatedRetirementDSR = ((monthlyHousingInstallment + currentDebts) / estimatedRetirementSalary) * 100;
+
+  if (totalDSRPercentage <= 40 && netLiquidityRemaining >= 5000 && retirementOverlapYears === 0) {
+    shieldClass = 'shield-approved';
+    shieldText = '🟢 قرار آمن ومثالي: القرض ممتاز ومطابق لخطة تقاعدك الحالية دون مخاطر.';
+    getEl('decisionShieldDisplay').className = `decision-matrix-shield ${shieldClass}`;
+    getEl('decisionShieldDisplay').textContent = shieldText;
+    getEl('reEngineeringSection').style.display = 'none';
   } 
-  else if (percent <= 65 && remaining >= 2500) {
-    decisionClass = 'mid';
-    decisionText = '⚠️ قرار مشروط: يرجى الحذر، الخيار يضغط على ميزانيتك المعيشية';
-    $('decisionBadge').className = `decision-badge ${decisionClass}`;
-    $('decisionBadge').textContent = decisionText;
-    
-    // اقتراحات الذكاء المالي
-    const idealMonthly = (S * 0.35) - E;
-    const targetFinanced = (idealMonthly > 0) ? (idealMonthly * M) / (1 + (R * (M / 12))) : 0;
-    const recommendedAssetPrice = targetFinanced + D;
-
-    whatIfHTML += `<div class="what-if-item">🔹 <b>لتوفير الأمان المطلق:</b> نوصي بالبحث عن عقار بديل لا تتجاوز قيمته <b>${fmt(recommendedAssetPrice)} ريال</b> لكي ينخفض الاستقطاع إلى الحدود الآمنة عالمياً (35%).</div>`;
-    $('whatIfContent').innerHTML = whatIfHTML;
-    $('whatIfSection').style.display = 'block';
-  } 
-  else {
-    decisionClass = 'bad';
-    decisionText = '❌ خطر مالي: القرض غير مناسب ومرفوض استشارياً لارتفاع المخاطر!';
-    $('decisionBadge').className = `decision-badge ${decisionClass}`;
-    $('decisionBadge').textContent = decisionText;
-
-    // حساب الحلول العميقة للخروج من مأزق الرفض
-    const safeDebtLimit = S * 0.50; 
-    const allowedMonthlyForLoan = safeDebtLimit - E;
-    
-    if (allowedMonthlyForLoan > 0) {
-      const allowedFinanced = (allowedMonthlyForLoan * M) / (1 + (R * (M / 12)));
-      const requiredExtraDown = financed - allowedFinanced;
-      const safePropertyPrice = allowedFinanced + D;
-
-      whatIfHTML += `<div class="what-if-item">🚨 <b>المشكلة:</b> الأقساط تلتهم المساحة الحيوية لعيش حياة كريمة وتسبب تعثراً محتملاً.</div>`;
-      whatIfHTML += `<div class="what-if-item">💡 <b>سيناريو زيادة الدفعة:</b> لكي تجعل هذا العقار متاحاً للشراء بأمان، يتوجب عليك زيادة كاش الدفعة الأولى بمقدار لا يقل عن <b>${fmt(requiredExtraDown)} ريال</b> لخفض أصل القرض.</div>`;
-      whatIfHTML += `<div class="what-if-item">🏡 <b>سيناريو خفض الميزانية:</b> ننصحك بالتوجه لشراء عقار مناسب لقدرتك الحالية بسعر لا يتجاوز <b>${fmt(safePropertyPrice)} ريال</b>.</div>`;
+  else if (retirementOverlapYears > 0 || (totalDSRPercentage > 40 && totalDSRPercentage <= 60)) {
+    // إذا امتد القرض لبعد التقاعد، ينزل التقييم فوراً إلى منطقة الحذر أو الخطر
+    if (retirementOverlapYears > 0 && estimatedRetirementDSR > 65) {
+      shieldClass = 'shield-critical';
+      shieldText = `❌ خطر مالي حرج: القرض الحالي يمتد لـ ${retirementOverlapYears.toFixed(1)} سنة بعد تقاعدك، وسوف يلتهم حوالي ${estimatedRetirementDSR.toFixed(0)}% من معاشك التقاعدي المتقلص!`;
     } else {
-      whatIfHTML += `<div class="what-if-item">🚨 <b>تحذير صارم:</b> التزاماتك الحالية عالية جداً بالفعل، ننصح بتصفية الديون والالتزامات الحالية (مثل قرض السيارة) قبل الدخول في أي تمويل عقاري جديد.</div>`;
+      shieldClass = 'shield-warning';
+      shieldText = `⚠️ قرار مشروط بالحذر: ميزانيتك مضغوطة حالياً، أو أن جزءاً خفيفاً من دينك متداخل مع سنوات تقاعدك الأولى.`;
     }
-    $('whatIfContent').innerHTML = whatIfHTML;
-    $('whatIfSection').style.display = 'block';
+    
+    getEl('decisionShieldDisplay').className = `decision-matrix-shield ${shieldClass}`;
+    getEl('decisionShieldDisplay').textContent = shieldText;
+
+    // سيناريو الهندسة العكسية 1: تقليص المدة لتتطابق مع سنة التقاعد بالمليم
+    const retirementSafeMonths = yearsUntilRetirement * 12;
+    const retirementInterestFactor = 1 + (aprRate * (retirementSafeMonths / 12));
+    const engineeredRetirementMonthlyInstallment = (financedPrincipal * retirementInterestFactor) / retirementSafeMonths;
+    const engineeredRetirementDSR = ((engineeredRetirementMonthlyInstallment + currentDebts) / monthlySalary) * 100;
+
+    if (retirementOverlapYears > 0) {
+      scenariosHTML += `
+        <div class="scenario-card">
+          👴 <b>مأزق الصدمة التقاعدية:</b> عند التقاعد ينخفض دخلك نظامياً، وبقاء القسط كما هو سيسبب لك أزمة عائلية حادة. يتوجب عليك حماية مستقبلك الآن لكي لا تندم لاحقاً.
+        </div>
+      `;
+
+      if (engineeredRetirementDSR <= 60) {
+        scenariosHTML += `
+          <div class="scenario-card">
+            ⏰ <b>سيناريو تقصير مدة القرض (الحل الأذكى):</b> نوصي بتعديل العقد لتصبح مدته <span class="text-highlight-blue">${retirementSafeMonths} شهراً (${yearsUntilRetirement} سنة)</span> فقط لتنتهي من ديونك تماماً يوم تقاعدك. هذا سيرفع قسطك الحالي إلى <span class="text-highlight-amber">${formatNumberToCurrency(engineeredRetirementMonthlyInstallment)} ريال</span>، وهي تقع في نطاق قدرتك المالية الحالية.
+          </div>
+        `;
+      } else {
+        // إذا كان تقصير المدة سيرفع القسط فوق طاقة راتبه الحالي، نقترح خفض ميزانية البيت أو ضخ كاش عالي
+        const maxAllowedMonthlyForRetirementTime = (monthlySalary * 0.45) - currentDebts;
+        const maxFinancedForRetirementTime = (maxAllowedMonthlyForRetirementTime * retirementSafeMonths) / (1 + (aprRate * (yearsUntilRetirement)));
+        const neededExtraDownpaymentForRetirement = financedPrincipal - maxFinancedForRetirementTime;
+        const totalSafeAssetPriceForRetirement = maxFinancedForRetirementTime + downPayment;
+
+        scenariosHTML += `
+          <div class="scenario-card">
+            💰 <b>سيناريو ضخ كاش إنقاذي للتقاعد آمن:</b> إذا كنت مصراً على هذا العقار وتريد إنهاءه قبل التقاعد، يجب عليك زيادة كاش الدفعة الأولى بمقدار <span class="text-highlight-blue">${formatNumberToCurrency(neededExtraDownpaymentForRetirement)} ريال</span> لكي تتقلص المدة والقسط معاً إلى الحدود الآمنة.
+          </div>
+          <div class="scenario-card">
+            🏡 <b>سيناريو الميزانية العقارية البديلة:</b> الحل المالي الأكثر سلامة لك هو غض النظر عن هذا العقار، والبحث عن عقار بديل لا يتجاوز سعره الإجمالي <span class="text-highlight-green">${formatNumberToCurrency(totalSafeAssetPriceForRetirement)} ريال</span>، لكي يتوافق القسط تماماً مع تاريخ تقاعدك دون إرهاق ميزانيتك الحالية.
+          </div>
+        `;
+      }
+    } else {
+      // إذا كان القسط لا يتداخل مع التقاعد ولكنه مرتفع حالياً فقط
+      const optimalSafeHousingInstallment = (monthlySalary * 0.35) - currentDebts;
+      const engineeredSafeFinanced = (optimalSafeHousingInstallment > 0) ? (optimalSafeHousingInstallment * totalMonths) / (1 + (aprRate * (totalMonths / 12))) : 0;
+      const engineeredAssetTargetPrice = engineeredSafeFinanced + downPayment;
+
+      scenariosHTML += `
+        <div class="scenario-card">
+          📍 <b>سيناريو تعديل نطاق الأصول:</b> ديونك لا تتقاطع مع التقاعد ولكن قسطك مرتفع مقارنة براتبك الحالي. نوصي بالبحث عن عقار بديل لا تتجاوز قيمته الإجمالية <span class="text-highlight-green">${formatNumberToCurrency(engineeredAssetTargetPrice)} ريال</span> للعيش بأمان مالي مطلق.
+        </div>
+      `;
+    }
+
+    getEl('reEngineeringContent').innerHTML = scenariosHTML;
+    getEl('reEngineeringSection').style.display = 'block';
   }
 }
 
-async function shareResults(){
-  if($('financed').textContent === '0 ريال'){
-    alert('الرجاء إدخال البيانات والضغط على إصدار قرار أولاً');
+async function exportExecutiveDecisionReport() {
+  if (getEl('outFinancedPrincipal').textContent === '0 ريال') {
+    alert('الرجاء تعبئة بارامترات القرض أولاً والضغط على معالجة البيانات لتوليد وثيقة تقرير القرار المالي.');
     return;
   }
   
-  const report = `
-⚖️ وثيقة القرار المالي الاستشاري العقاري
-----------------------------------
-القرار النهائي: ${$('decisionBadge').textContent}
-🏠 قيمة العقار المطلوب: ${$('loan').value} ريال
-💰 أصل مبلغ التمويل: ${$('financed').textContent}
-📆 القسط الشهري للعقار: ${$('monthly').textContent}
-💳 صافي المتبقي لك للمعيشة: ${$('remaining').textContent}
-📊 نسبة الاستقطاع الإجمالية: ${$('percent').textContent}
-⚠️ التكاليف الأولية الخفية (الكاش المطلق المطلوب فوراً): ${$('hiddenCosts').textContent}
-🗓 نهاية القسط المتوقعة: ${$('endDate').textContent}
-----------------------------------
-صادر عن برنامج مستشار القرار المالي الذكي.
+  const institutionalReport = `
+============================================================
+       📄 وثيقة تقرير القرار المالي والاستشراف التقاعدي
+============================================================
+القرار المالي الاستشاري: ${getEl('decisionShieldDisplay').textContent}
+------------------------------------------------------------
+📋 [بيانات الأصول والمدخلات التأسيسية]:
+- حالة الإعفاء الضريبي للمسكن الأول: ${getEl('inIsFirstHome').options[getEl('inIsFirstHome').selectedIndex].text}
+- القيمة السوقية للعقار المستهدف: ${getEl('inPropertyAssetPrice').value} ريال
+- إجمالي كاش الدفعة الأولى والدعم: ${getEl('inDownPaymentCash').value} ريال
+- المرتب الشهري الصافي الحالي: ${getEl('inNetMonthlySalary').value} ريال
+- السنوات المتبقية للتقاعد: ${getEl('inYearsUntilRetirement').value} سنة
+
+📈 [نتائج التحليل وهندسة كتلة رأس المال]:
+- صافي التمويل المطلوب (أصل المديونية): ${getEl('outFinancedPrincipal').textContent}
+- القسط العقاري الشهري المترتب: ${getEl('outMonthlyHousingInstallment').textContent}
+- العبء الإجمالي لأرباح جهة التمويل: ${getEl('outCumulativeTotalInterest').textContent}
+- الالتزام الرأسمالي التراكمي: ${getEl('outGrandTotalRepayments').textContent}
+
+📊 [مؤشرات الأمان الائتماني والسيولة الحيوية]:
+- نسبة الاستقطاع من الدخل الحالي (DSR): ${getEl('outTotalDSRPercentage').textContent}
+- الفائض النقدي المعيشي المتبقي حالياً: ${getEl('outNetLiquidityRemaining').textContent}
+- نقد الرسوم الأولية المطلوبة فوراً (كاش خارج التمويل): ${getEl('outHiddenCapitalFees').textContent}
+- تاريخ انتهاء العقد الائتماني المقدر: ${getEl('outHijriTargetDate').textContent}
+------------------------------------------------------------
+* صادر عن منصة مستشار القرار المالي الذكي - جميع الحقوق محفوظة لعام 2026.
+============================================================
   `.trim();
 
   try {
-    await navigator.clipboard.writeText(report);
-    alert('✅ تم نسخ وثيقة التقرير المالي كاملة بنجاح! يمكنك الآن طباعتها أو إرسالها.');
-  } catch(e) {
-    alert('لم نتمكن من النسخ التلقائي، يرجى تصوير الشاشة لحفظ القرار.');
+    await navigator.clipboard.writeText(institutionalReport);
+    alert('✅ تم نسخ وثيقة التقرير الاستراتيجي الشامل شاملةً تحليل صدمة التقاعد! يمكنك لصقها وطباعتها الآن.');
+  } catch (error) {
+    alert('حدث خطأ أثناء محاولة النسخ التلقائي، يرجى تصوير الشاشة لحفظ تقرير القرار المالي.');
   }
 }
 </script>
