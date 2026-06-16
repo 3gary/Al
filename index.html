@@ -3,560 +3,482 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>المستشار المالي الذكي</title>
+<title>مستشار القرار المالي الذكي</title>
 
 <style>
-body{
-  background:#020617;
-  margin:0;
-  padding:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+:root {
+  --bg-main: #020617;
+  --bg-card: #0f172a;
+  --border-color: #1f2937;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
 }
 
-#bankApp{
-  max-width:900px;
-  margin:20px auto;
-  padding:15px;
-  direction:rtl;
-  color:#fff;
+body {
+  background: var(--bg-main);
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--text-main);
 }
 
-*{
-  box-sizing:border-box;
+#bankApp {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 15px;
+  direction: rtl;
 }
 
-.card{
-  background:#0f172a;
-  border:1px solid #1f2937;
-  padding:15px;
-  border-radius:16px;
-  margin-bottom:12px;
+* {
+  box-sizing: border-box;
 }
 
-input{
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 24px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #93c5fd;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  padding: 14px;
+  border-radius: 12px;
   border: 2px solid #334155;
   background: #020617;
   color: #fff;
-  text-align: center;
+  text-align: right;
   font-size: 16px;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
-/* إطار ذهبي متحرك بسيط عند التركيز */
-input:focus{
+input:focus {
   outline: none;
-  border-color: #ffd700;
-  animation: glowMove 1.5s linear infinite;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* حركة خفيفة للإطار */
-@keyframes glowMove{
-  0%   { border-color: #ffd700; }
-  50%  { border-color: #d4af37; }
-  100% { border-color: #ffd700; }
+button {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s ease;
 }
 
-input{
-  
-  width:100%;
-  padding:13px;
-  margin-bottom:10px;
-  border-radius:12px;
-  border:1px solid #334155;
-  background:#020617;
-  color:#fff;
-  text-align:center;
-  font-size:16px;
+.run {
+  background: #2563eb;
+  color: #fff;
 }
 
-button{
-  width:100%;
-  border:none;
-  border-radius:14px;
-  padding:14px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
+.run:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
 }
 
-/* زر التحليل */
-.run{
-  background:#2563eb;
-  color:#fff;
-  transition:.25s;
+.shareBtn {
+  margin-top: 12px;
+  color: #fff;
+  background: #1e293b;
+  border: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-.run:hover{
-  background:#1d4ed8;
+.shareBtn:hover {
+  background: #334155;
 }
 
-/* زر المشاركة */
-.shareBtn{
-  margin-top:10px;
-  color:#fff;
-  background:linear-gradient(135deg,#0ea5e9,#2563eb);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  transition:.25s ease;
-  box-shadow:0 10px 25px rgba(37,99,235,.25);
+/* لوحة القرار الحاسم */
+.decision-badge {
+  padding: 15px;
+  border-radius: 14px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
 }
 
-.shareBtn:hover{
-  transform:translateY(-2px);
+.decision-badge.initial { background: #1e293b; color: var(--text-muted); }
+.decision-badge.good { background: rgba(16, 185, 129, 0.15); color: var(--color-success); border: 1px solid var(--color-success); }
+.decision-badge.mid { background: rgba(245, 158, 11, 0.15); color: var(--color-warning); border: 1px solid var(--color-warning); }
+.decision-badge.bad { background: rgba(239, 68, 68, 0.15); color: var(--color-danger); border: 1px solid var(--color-danger); }
+
+/* التوزيع المرئي للراتب */
+.salary-distribution {
+  margin: 20px 0;
 }
-
-.shareBtn:active{
-  transform:scale(.98);
+.dist-title {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
 }
-
-.box{
-  display:flex;
-  justify-content:space-between;
-  padding:12px;
-  border-bottom:1px solid #1f2937;
+.progress-bar-container {
+  display: flex;
+  height: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #334155;
 }
-
-.alert{
-  margin-top:12px;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:bold;
+.progress-part {
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: #fff;
 }
+.part-expenses { background: #ef4444; }
+.part-loan { background: #3b82f6; }
+.part-remain { background: #10b981; }
 
-.good{background:#16a34a;}
-.mid{background:#f59e0b;color:#000;}
-.bad{background:#dc2626;}
-
-.hint{
-  font-size:13px;
-  color:#cbd5e1;
-  margin-top:10px;
-  line-height:1.8;
+.legend {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+  font-size: 12px;
+  justify-content: center;
 }
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 
-/* الشريط */
-.meter{
-  width:100%;
-  height:14px;
-  background:#1f2937;
-  border-radius:999px;
-  overflow:hidden;
-  margin-bottom:12px;
+/* تفاصيل البيانات */
+.box {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #1f2937;
+  font-size: 15px;
 }
+.box span { color: var(--text-muted); }
+.box b { color: var(--text-main); }
 
-#meterBar{
-  width:0%;
-  height:100%;
-  border-radius:999px;
-  transition:1.5s ease;
+/* البدائل الذكية وماذا لو */
+.what-if-container {
+  margin-top: 20px;
+  background: #1e293b;
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px dashed #3b82f6;
 }
-
-/* السعر المناسب */
-.recBox{
-  margin-bottom:12px;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #334155;
-  background:linear-gradient(135deg,#0f172a,#111827);
-  text-align:center;
+.what-if-title {
+  color: #60a5fa;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
-
-.recTitle{
-  color:#93c5fd;
-  font-weight:bold;
-}
-
-.recBox b{
-  display:block;
-  margin-top:8px;
-  font-size:22px;
-  color:#22c55e;
-}
-
-.recSub{
-  margin-top:6px;
-  font-size:12px;
-  color:#94a3b8;
+.what-if-item {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 8px;
 }
 </style>
 </head>
-
 <body>
 
 <div id="bankApp">
+  <div class="grid-layout">
+    
+    <div class="card">
+      <div class="card-title">📝 بيانات العقار والطلب</div>
+      
+      <div class="input-group">
+        <label>قيمة العقار السوقية (ريال)</label>
+        <input id="loan" placeholder="مثال: 1,200,000" />
+      </div>
 
-  <!-- الإدخال -->
-  <div class="card">
+      <div class="input-group">
+        <label>الدفعة الأولى المقدمة + الدعم (ريال)</label>
+        <input id="down" placeholder="مثال: 200,000" />
+      </div>
 
-    <input id="loan" placeholder="مبلغ العقار" />
-    <input id="down" placeholder="الدفعة + الدعم السكني" />
-    <input id="salary" placeholder="الراتب الشهري" />
-    <input id="expenses" placeholder="الالتزامات" />
-    <input id="months" placeholder="مدة التمويل بالأشهر" />
-    <input id="rate" placeholder="نسبة الفائدة (5.5 أو 5,5)" />
+      <div class="input-group">
+        <label>الصافي الشهري للراتب (ريال)</label>
+        <input id="salary" placeholder="مثال: 15,000" />
+      </div>
 
-    <button class="run" onclick="calc()">
-      تحليل القرض
-    </button>
+      <div class="input-group">
+        <label>الالتزامات الشهرية الحالية (سيارة/شخصي)</label>
+        <input id="expenses" placeholder="أدخل 0 إن لم يوجد" />
+      </div>
 
-    <button class="shareBtn" onclick="shareResults()">
-      <span>📤</span>
-      مشاركة النتائج
-    </button>
+      <div class="input-group">
+        <label>مدة التمويل المطلوبة (بالأشهر)</label>
+        <input id="months" placeholder="مثال: 240 (20 سنة)" />
+      </div>
+
+      <div class="input-group">
+        <label>النسبة السنوية للربح APR (%)</label>
+        <input id="rate" placeholder="مثال: 4.5" />
+      </div>
+
+      <button class="run" onclick="analyzeFinancialDecision()">
+        🧠 إرسال طلب استشارة وإصدار قرار
+      </button>
+
+      <button class="shareBtn" onclick="shareResults()">
+        📤 نسخ تقرير القرار للطباعة
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚖️ وثيقة القرار المالي الاستشاري</div>
+
+      <div id="decisionBadge" class="decision-badge initial">
+        الرجاء تعبئة البيانات والضغط على تحليل
+      </div>
+
+      <div class="salary-distribution">
+        <div class="dist-title">📊 الهيكل المتوقع لراتبك الشهري بعد التمويل:</div>
+        <div class="progress-bar-container">
+          <div id="partExpenses" class="progress-part part-expenses" style="width: 0%"></div>
+          <div id="partLoan" class="progress-part part-part-loan part-loan" style="width: 0%"></div>
+          <div id="partRemain" class="progress-part part-remain" style="width: 0%"></div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="dot part-expenses"></span>التزامات سابقة</div>
+          <div class="legend-item"><span class="dot part-loan"></span>قسط العقار الجديد</div>
+          <div class="legend-item"><span class="dot part-remain"></span>المعيشة الصافية</div>
+        </div>
+      </div>
+
+      <div class="box"><span>صافي مبلغ التمويل المطلق:</span><b id="financed">0 ريال</b></div>
+      <div class="box"><span>القسط العقاري المقدر:</span><b id="monthly">0 ريال</b></div>
+      <div class="box"><span>إجمالي الفوائد والأرباح للبنك:</span><b id="interest">0 ريال</b></div>
+      <div class="box"><span>المبلغ الكلي لرد التمويل:</span><b id="total">0 ريال</b></div>
+      <div class="box"><span>نسبة الاستقطاع الإجمالية من الدخل:</span><b id="percent">0%</b></div>
+      <div class="box"><span>الفائض المتبقي للمعيشة والفواتير:</span><b id="remaining">0 ريال</b></div>
+      
+      <div class="box">
+        <span>⚠️ كاش أولي مطلوب (الضريبة 5% + السعي 2.5%):</span>
+        <b id="hiddenCosts" style="color: #fca5a5;">0 ريال</b>
+      </div>
+      
+      <div class="box"><span>التاريخ المتوقع لانتهاء الأقساط:</span><b id="endDate">--</b></div>
+
+      <div id="whatIfSection" class="what-if-container" style="display: none;">
+        <div class="what-if-title">💡 سيناريوهات بديلة لتحسين القرار المالي:</div>
+        <div id="whatIfContent"></div>
+      </div>
+
+    </div>
 
   </div>
-
-  <!-- النتائج -->
-  <div class="card">
-
-    <div class="meter">
-      <div id="meterBar"></div>
-    </div>
-
-    <div class="box">
-      <span>التمويل</span>
-      <b id="financed">0</b>
-    </div>
-
-    <div class="box">
-      <span>القسط</span>
-      <b id="monthly">0</b>
-    </div>
-
-    <div class="box">
-      <span>الفائدة</span>
-      <b id="interest">0</b>
-    </div>
-
-    <div class="box">
-      <span>الإجمالي</span>
-      <b id="total">0</b>
-    </div>
-
-    <div class="box">
-      <span>المتبقي من الراتب</span>
-      <b id="remaining">0</b>
-    </div>
-
-    <div class="box">
-      <span>نسبة الاستقطاع</span>
-      <b id="percent">0%</b>
-    </div>
-
-    <div class="box">
-      <span>نهاية القسط (هجري)</span>
-      <b id="endDate">--</b>
-    </div>
-
-    <div id="alertBox" class="alert">
-      أدخل البيانات لبدء التحليل
-    </div>
-
-    <div id="hintBox" class="hint"></div>
-
-  </div>
-
 </div>
 
 <script>
 const $ = id => document.getElementById(id);
 
-function parseMoney(v){
-  return parseFloat(String(v).replace(/,/g,'')) || 0;
-}
-
-function parseRate(v){
-  return parseFloat(String(v).replace(',', '.')) || 0;
-}
-
-function fmt(v){
-  return Math.round(v).toLocaleString('en-US');
-}
+function parseMoney(v){ return parseFloat(String(v).replace(/,/g,'')) || 0; }
+function parseRate(v){ return parseFloat(String(v).replace(',', '.')) || 0; }
+function fmt(v){ return Math.round(v).toLocaleString('en-US'); }
 
 function bindMoney(id){
   const el=$(id);
-
   el.addEventListener('input',()=>{
-
     let v=el.value.replace(/[^0-9]/g,'');
-
     v=v.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
     el.value=v;
   });
 }
 
 function bindRate(id){
   const el=$(id);
-
   el.addEventListener('input',()=>{
-
     let v=el.value.replace(/[^0-9.,]/g,'');
-
     v=v.replace(',', '.');
-
     let p=v.split('.');
-
-    if(p.length>2){
-      v=p[0]+'.'+p.slice(1).join('');
-    }
-
+    if(p.length>2) v=p[0]+'.'+p.slice(1).join('');
     el.value=v;
   });
 }
 
-['loan','down','salary','expenses','months']
-.forEach(bindMoney);
-
+['loan','down','salary','expenses','months'].forEach(bindMoney);
 bindRate('rate');
 
-function calc(){
+function analyzeFinancialDecision(){
+  const L = parseMoney($('loan').value);
+  const D = parseMoney($('down').value);
+  const S = parseMoney($('salary').value);
+  const E = parseMoney($('expenses').value);
+  const M = parseMoney($('months').value);
+  const R = parseRate($('rate').value) / 100;
 
-  const L=parseMoney(loan.value);
-  const D=parseMoney(down.value);
-  const S=parseMoney(salary.value);
-  const E=parseMoney(expenses.value);
-  const M=parseMoney(months.value);
-  const R=parseRate(rate.value)/100;
-
-  const financed=L-D;
-  const interest=financed*R*(M/12);
-  const total=financed+interest;
-  const monthly=total/M;
-  const totalDebt=monthly+E;
-  const percent=(totalDebt/S)*100;
-  const remaining=S-totalDebt;
-
-  financedEl.textContent=fmt(financed);
-  monthlyEl.textContent=fmt(monthly);
-  interestEl.textContent=fmt(interest);
-  totalEl.textContent=fmt(total);
-  remainingEl.textContent=fmt(remaining);
-  percentEl.textContent=fmt(percent)+'%';
-
-  if(M>0){
-
-    const end=new Date();
-
-    end.setMonth(end.getMonth()+M);
-
-    const formatter=
-    new Intl.DateTimeFormat(
-      'en-u-ca-islamic',
-      {
-        year:'numeric',
-        month:'2-digit',
-        day:'2-digit'
-      }
-    );
-
-    endDate.textContent=
-    formatter.format(end);
-  }
-
-  let score=100-percent;
-
-  if(remaining<0) score-=30;
-  if(percent>50) score-=30;
-  if(percent>70) score-=40;
-
-  score=Math.max(0,Math.min(score,100));
-
-  meterBar.style.width=score+'%';
-
-  let warnings="";
-  let alerts="";
-  let guide="";
-  let recommendedPrice="";
-
-  if(score>=70){
-
-    meterBar.style.background='#16a34a';
-
-    alertBox.className='alert good';
-    alertBox.textContent='🟢 مناسب';
-
-    warnings='✔ الالتزامات ضمن الحد الآمن';
-    alerts='⚠ تغير الفائدة قد يؤثر';
-    guide='✔ يمكنك الموافقة بأمان';
-
-  } else if(score>=40){
-
-    meterBar.style.background='#f59e0b';
-
-    alertBox.className='alert mid';
-    alertBox.textContent='🟡 يحتاج حذر';
-
-    warnings='⚠ ضغط متوسط';
-    alerts='⚠ أي زيادة قد تسبب ضغط';
-    guide='🟡 يفضل تقليل القسط';
-
-  } else {
-
-    meterBar.style.background='#dc2626';
-
-    alertBox.className='alert bad';
-    alertBox.textContent='🔴 خطر مالي';
-
-    warnings='🚨 ضغط عالي جداً';
-    alerts='⚠ خطر تعثر مالي';
-    guide='🔴 غير مناسب حالياً';
-  }
-
-  if(score<70 && S>0){
-
-    const targetPercent=30;
-    const maxDebt=(S*targetPercent)/100;
-    const allowedMonthly=maxDebt-E;
-
-    if(allowedMonthly>0){
-
-      const allowedTotal=
-      allowedMonthly*M;
-
-      const factor=
-      1+(R*(M/12));
-
-      const price=
-      (allowedTotal/factor)+D;
-
-      recommendedPrice=`
-      <div class="recBox">
-        <div class="recTitle">
-          🏡 سعر عقار مناسب لك
-        </div>
-        <b>${fmt(price)}</b>
-        <div class="recSub">
-          يصبح التقييم أخضر
-        </div>
-      </div>`;
-    }
-  }
-
-  hintBox.innerHTML=`
-    ${recommendedPrice}
-    📌 التحذيرات: ${warnings}<br>
-    ⚠ التنبيهات: ${alerts}<br>
-    🧠 الإرشاد: ${guide}
-  `;
-}
-
-/* مشاركة النتائج */
-async function shareResults(){
-
-  if(financedEl.textContent==='0'){
-    alert('قم بتحليل القرض أولاً');
+  if(S === 0 || M === 0 || L === 0){
+    alert("الرجاء تعبئة الخانات الحيوية (قيمة العقار، الراتب، والمدة) لإصدار القرار.");
     return;
   }
 
-  const report=`
-🏡 تقرير التمويل العقاري
-🏠 قيمة العقار:
-${loan.value} ريال
-💵 الدفعة + الدعم:
-${down.value} ريال
-💰 مبلغ التمويل:
-${financedEl.textContent} ريال
-📆 القسط الشهري:
-${monthlyEl.textContent} ريال
-📈 الفائدة:
-${interestEl.textContent} ريال
-💵 إجمالي السداد:
-${totalEl.textContent} ريال
-💳 المتبقي من الراتب:
-${remainingEl.textContent} ريال
-📊 نسبة الاستقطاع:
-${percentEl.textContent}
-🗓 نهاية القسط:
-${endDate.textContent}
-📌 التقييم:
-${alertBox.textContent}
-━━━
-المستشار المالي الذكي
-`.trim();
+  // الحسابات المالية الأساسية
+  const financed = L - D;
+  const interest = financed * R * (M / 12);
+  const total = financed + interest;
+  const monthly = total / M;
+  const totalDebt = monthly + E;
+  const percent = (totalDebt / S) * 100;
+  const remaining = S - totalDebt;
+  
+  // حساب الرسوم والأموال الإضافية (سعي وضريبة تصرفات عقارية)
+  const taxCost = L * 0.05;
+  const brokerCost = L * 0.025;
+  const totalHiddenCash = taxCost + brokerCost;
 
-  const btn=
-  document.querySelector('.shareBtn');
+  // إخراج البيانات الأساسية إلى الـ واجهة
+  $('financed').textContent = fmt(financed) + " ريال";
+  $('monthly').textContent = fmt(monthly) + " ريال";
+  $('interest').textContent = fmt(interest) + " ريال";
+  $('total').textContent = fmt(total) + " ريال";
+  $('percent').textContent = percent.toFixed(1) + "%";
+  $('remaining').textContent = fmt(remaining) + " ريال";
+  $('hiddenCosts').textContent = fmt(totalHiddenCash) + " ريال";
 
-  const oldHTML=
-  btn.innerHTML;
-
-  try{
-
-    if(navigator.share){
-
-      await navigator.share({
-        title:'تقرير التمويل العقاري',
-        text:report
-      });
-
-      return;
-    }
-
-  }catch(err){
-    console.log(err);
+  // حساب التواريخ الهجرية
+  if(M > 0){
+    const end = new Date();
+    end.setMonth(end.getMonth() + M);
+    const formatter = new Intl.DateTimeFormat('en-u-ca-islamic', {year:'numeric', month:'2-digit', day:'2-digit'});
+    $('endDate').textContent = formatter.format(end) + " هـ";
   }
 
-  try{
+  // تحديث مخطط شريط الراتب
+  const expPct = Math.min((E / S) * 100, 100);
+  const loanPct = Math.min((monthly / S) * 100, 100 - expPct);
+  const remPct = Math.max(0, 100 - (expPct + loanPct));
 
-    await navigator.clipboard
-    .writeText(report);
+  $('partExpenses').style.width = expPct + "%";
+  $('partExpenses').textContent = expPct > 10 ? Math.round(expPct) + "%" : "";
+  $('partLoan').style.width = loanPct + "%";
+  $('partLoan').textContent = loanPct > 10 ? Math.round(loanPct) + "%" : "";
+  $('partRemain').style.width = remPct + "%";
+  $('partRemain').textContent = remPct > 10 ? Math.round(remPct) + "%" : "";
 
-    btn.innerHTML=
-    '✅ تم نسخ التقرير';
+  // تقييم منطق القرار المالي
+  let decisionClass = 'initial';
+  let decisionText = '';
+  let whatIfHTML = '';
 
-    setTimeout(()=>{
-      btn.innerHTML=
-      oldHTML;
-    },2000);
+  if (percent <= 45 && remaining >= 4000) {
+    decisionClass = 'good';
+    decisionText = '✅ قرار آمن: نوصي بالمضي قدماً في التمويل';
+    $('decisionBadge').className = `decision-badge ${decisionClass}`;
+    $('decisionBadge').textContent = decisionText;
+    $('whatIfSection').style.display = 'none';
+  } 
+  else if (percent <= 65 && remaining >= 2500) {
+    decisionClass = 'mid';
+    decisionText = '⚠️ قرار مشروط: يرجى الحذر، الخيار يضغط على ميزانيتك المعيشية';
+    $('decisionBadge').className = `decision-badge ${decisionClass}`;
+    $('decisionBadge').textContent = decisionText;
+    
+    // اقتراحات الذكاء المالي
+    const idealMonthly = (S * 0.35) - E;
+    const targetFinanced = (idealMonthly > 0) ? (idealMonthly * M) / (1 + (R * (M / 12))) : 0;
+    const recommendedAssetPrice = targetFinanced + D;
 
-  }catch(e){
+    whatIfHTML += `<div class="what-if-item">🔹 <b>لتوفير الأمان المطلق:</b> نوصي بالبحث عن عقار بديل لا تتجاوز قيمته <b>${fmt(recommendedAssetPrice)} ريال</b> لكي ينخفض الاستقطاع إلى الحدود الآمنة عالمياً (35%).</div>`;
+    $('whatIfContent').innerHTML = whatIfHTML;
+    $('whatIfSection').style.display = 'block';
+  } 
+  else {
+    decisionClass = 'bad';
+    decisionText = '❌ خطر مالي: القرض غير مناسب ومرفوض استشارياً لارتفاع المخاطر!';
+    $('decisionBadge').className = `decision-badge ${decisionClass}`;
+    $('decisionBadge').textContent = decisionText;
 
-    const textarea=
-    document.createElement('textarea');
+    // حساب الحلول العميقة للخروج من مأزق الرفض
+    const safeDebtLimit = S * 0.50; 
+    const allowedMonthlyForLoan = safeDebtLimit - E;
+    
+    if (allowedMonthlyForLoan > 0) {
+      const allowedFinanced = (allowedMonthlyForLoan * M) / (1 + (R * (M / 12)));
+      const requiredExtraDown = financed - allowedFinanced;
+      const safePropertyPrice = allowedFinanced + D;
 
-    textarea.value=report;
-
-    document.body
-    .appendChild(textarea);
-
-    textarea.select();
-
-    document.execCommand('copy');
-
-    document.body
-    .removeChild(textarea);
-
-    btn.innerHTML=
-    '✅ تم نسخ التقرير';
-
-    setTimeout(()=>{
-      btn.innerHTML=
-      oldHTML;
-    },2000);
+      whatIfHTML += `<div class="what-if-item">🚨 <b>المشكلة:</b> الأقساط تلتهم المساحة الحيوية لعيش حياة كريمة وتسبب تعثراً محتملاً.</div>`;
+      whatIfHTML += `<div class="what-if-item">💡 <b>سيناريو زيادة الدفعة:</b> لكي تجعل هذا العقار متاحاً للشراء بأمان، يتوجب عليك زيادة كاش الدفعة الأولى بمقدار لا يقل عن <b>${fmt(requiredExtraDown)} ريال</b> لخفض أصل القرض.</div>`;
+      whatIfHTML += `<div class="what-if-item">🏡 <b>سيناريو خفض الميزانية:</b> ننصحك بالتوجه لشراء عقار مناسب لقدرتك الحالية بسعر لا يتجاوز <b>${fmt(safePropertyPrice)} ريال</b>.</div>`;
+    } else {
+      whatIfHTML += `<div class="what-if-item">🚨 <b>تحذير صارم:</b> التزاماتك الحالية عالية جداً بالفعل، ننصح بتصفية الديون والالتزامات الحالية (مثل قرض السيارة) قبل الدخول في أي تمويل عقاري جديد.</div>`;
+    }
+    $('whatIfContent').innerHTML = whatIfHTML;
+    $('whatIfSection').style.display = 'block';
   }
 }
 
-/* العناصر */
-const financedEl=$('financed');
-const monthlyEl=$('monthly');
-const interestEl=$('interest');
-const totalEl=$('total');
-const remainingEl=$('remaining');
-const percentEl=$('percent');
-const endDate=$('endDate');
-const alertBox=$('alertBox');
-const hintBox=$('hintBox');
-const meterBar=$('meterBar');
-</script>
+async function shareResults(){
+  if($('financed').textContent === '0 ريال'){
+    alert('الرجاء إدخال البيانات والضغط على إصدار قرار أولاً');
+    return;
+  }
+  
+  const report = `
+⚖️ وثيقة القرار المالي الاستشاري العقاري
+----------------------------------
+القرار النهائي: ${$('decisionBadge').textContent}
+🏠 قيمة العقار المطلوب: ${$('loan').value} ريال
+💰 أصل مبلغ التمويل: ${$('financed').textContent}
+📆 القسط الشهري للعقار: ${$('monthly').textContent}
+💳 صافي المتبقي لك للمعيشة: ${$('remaining').textContent}
+📊 نسبة الاستقطاع الإجمالية: ${$('percent').textContent}
+⚠️ التكاليف الأولية الخفية (الكاش المطلق المطلوب فوراً): ${$('hiddenCosts').textContent}
+🗓 نهاية القسط المتوقعة: ${$('endDate').textContent}
+----------------------------------
+صادر عن برنامج مستشار القرار المالي الذكي.
+  `.trim();
 
+  try {
+    await navigator.clipboard.writeText(report);
+    alert('✅ تم نسخ وثيقة التقرير المالي كاملة بنجاح! يمكنك الآن طباعتها أو إرسالها.');
+  } catch(e) {
+    alert('لم نتمكن من النسخ التلقائي، يرجى تصوير الشاشة لحفظ القرار.');
+  }
+}
+</script>
 </body>
 </html>
