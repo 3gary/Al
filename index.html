@@ -147,6 +147,23 @@ input::placeholder {
   box-shadow: 0 6px 22px rgba(2, 132, 199, 0.4);
 }
 
+.btn-share {
+  width: 100%;
+  background: linear-gradient(135deg, #4b5563, #374151);
+  color: #fff;
+  border: 1px solid var(--border-glow);
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.btn-share:hover {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
 .verdict-banner {
   padding: 24px;
   border-radius: 16px;
@@ -220,6 +237,7 @@ input::placeholder {
 
   <div class="architecture-grid">
     
+    <!-- مدخلات المنصة -->
     <div class="workspace-card">
       <div class="section-main-title">📥 بارامترات الملف المالي العقاري</div>
       
@@ -271,6 +289,7 @@ input::placeholder {
       </button>
     </div>
 
+    <!-- مخرجات المنصة والقرار الحاسم -->
     <div class="workspace-card">
       <div class="section-main-title">⚖️ وثيقة القرار التنفيذي الحاسم للملف المالي</div>
 
@@ -301,7 +320,12 @@ input::placeholder {
         <tr><td class="lbl">الكاش الأولي المستحق فوراً (سعي + رسوم + ضريبة إن وجدت):</td><td class="val" id="valHiddenCosts" style="color: var(--brand-rose);">0 ريال</td></tr>
       </table>
 
-      <div class="section-main-title" style="margin-top: 15px; font-size: 15px; border-bottom: 1px solid var(--border-glow); padding-bottom: 6px;">
+      <!-- زر مشاركة النتائج النصية الخام الصافية -->
+      <button class="btn-share" onclick="copyCleanReport()">
+        📋 نسخ التقرير المالي للمشاركة (نص صافي بدون خطوط أو ألوان)
+      </button>
+
+      <div class="section-main-title" style="margin-top: 25px; font-size: 15px; border-bottom: 1px solid var(--border-glow); padding-bottom: 6px;">
         📅 الخطة الهيكلية لتلاشي رصيد المديونية واستهلاك الأرباح سنوياً
       </div>
       <div class="table-scroll-container">
@@ -329,6 +353,8 @@ input::placeholder {
 </div>
 
 <script>
+let globalReportData = null;
+
 const getBox = id => document.getElementById(id);
 function cleanNum(v) { return parseFloat(String(v).replace(/,/g, '')) || 0; }
 function formatMoney(v) { return Math.round(v).toLocaleString('en-US'); }
@@ -373,11 +399,11 @@ function calculateFinancialSystem() {
   const loanYears = months / 12;
   const retirementOverlapYears = Math.max(0, loanYears - serviceYears);
 
+  const hijriDateResult = computeTargetHijriDate(months);
+
   getBox('displayInstallment').textContent = formatMoney(monthlyInstallmentValue) + " ريال";
   getBox('displayNetCash').textContent = formatMoney(netRemainingCash) + " ريال";
-  
-  // استدعاء محرك التقويم الهجري الرقمي الآمن والمحصن
-  getBox('displayHijriDate').textContent = computeTargetHijriDate(months);
+  getBox('displayHijriDate').textContent = hijriDateResult;
 
   getBox('valPrincipal').textContent = formatMoney(principalAmount) + " ريال";
   getBox('valTotalInterest').textContent = formatMoney(cumulativeInterestCost) + " ريال";
@@ -388,48 +414,66 @@ function calculateFinancialSystem() {
   const banner = getBox('verdictShield');
   const estimatedRetirementSalary = salary * 0.70;
   const dsrAtRetirementTime = (monthlyInstallmentValue / estimatedRetirementSalary) * 100;
+  
+  let textVerdict = "";
 
-  if (totalDSR <= 45 && retirementOverlapYears === 0 && netRemainingCash >= 4500) {
-    banner.className = "verdict-banner verdict-safe";
-    banner.innerHTML = "🟢 <b>قرار معتمد (آمن كلياً):</b> ملفك الائتماني متزن ومطابق للملاءة المالية. القرض ينتهي بالكامل قبل بلوغ سن التقاعد النظامي.";
-  } 
-  else if (retirementOverlapYears > 0 && dsrAtRetirementTime > 65) {
+  // شروط الفرز المالي المدمج بها قواعد فحص سقف الأقساط الجديدة
+  if (monthlyInstallmentValue > 6000) {
     banner.className = "verdict-banner verdict-critical";
-    banner.innerHTML = `❌ <b>قرار حرج (مخاطر تقاعدية داهمة):</b> العقد يمتد لـ ${retirementOverlapYears.toFixed(1)} سنة داخل زمن تقاعدك، وسيلتهم حوالي ${dsrAtRetirementTime.toFixed(0)}% من معاشك التقاعدي المخفض!`;
-  } 
+    textVerdict = `❌ قرار حرج (تجاوز السقف الأعلى): القسط الشهري الحالي (${formatMoney(monthlyInstallmentValue)} ريال) تجاوز حاجز 6,000 ريال، وهذا يمثل عبئاً مالياً خطيراً ولا يُنصح به نهائياً.`;
+  }
+  else if (monthlyInstallmentValue > 5500) {
+    banner.className = "verdict-banner verdict-caution";
+    textVerdict = `⚠️ تنبيه مالي مقيد: القسط الحالي أعلى من 5,500 ريال. نرى بأن هذا الالتزام مرتفع جداً، ويُفضّل بشدة تعديل مدة العقد أو زيادة الدفعة ليكون القسط تحت عتبة 5,500 ريال لتأمين السيولة.`;
+  }
   else if (totalDSR > 60 || netRemainingCash < 3000) {
     banner.className = "verdict-banner verdict-critical";
-    banner.innerHTML = `❌ <b>قرار حرج (تجاوز حد الأمان الائتماني):</b> نسبة الاستقطاع الحالية خانقة وتتجاوز خطوط الأمان، مما يهدد السيولة اليومية للأسرة.`;
+    textVerdict = "قرار حرج (تجاوز حد الأمان الائتماني): نسبة الاستقطاع الكلية خانقة وتتجاوز خطوط الأمان، مما يهدد السيولة اليومية للأسرة.";
+  }
+  else if (retirementOverlapYears > 0 && dsrAtRetirementTime > 65) {
+    banner.className = "verdict-banner verdict-critical";
+    textVerdict = `قرار حرج (مخاطر تقاعدية داهمة): العقد يمتد لـ ${retirementOverlapYears.toFixed(1)} سنة داخل زمن تقاعدك، وسيلتهم حوالي ${dsrAtRetirementTime.toFixed(0)}% من معاشك التقاعدي المخفض!`;
+  } 
+  else if (totalDSR <= 45 && retirementOverlapYears === 0 && netRemainingCash >= 4500) {
+    banner.className = "verdict-banner verdict-safe";
+    textVerdict = "🟢 قرار معتمد (آمن ائتمانياً): ملفك المالي متزن، والقسط ضمن الحدود المستهدفة والمريحة للأسرة، وينتهي بالكامل قبل التقاعد.";
   } 
   else {
     banner.className = "verdict-banner verdict-caution";
-    banner.innerHTML = `⚠️ <b>قرار مشروط بالحذر التشغيلي:</b> الخطة مقبولة دفترياً، لكن احذر من امتداد الأقساط لـ ${retirementOverlapYears.toFixed(1)} سنة بعد التقاعد.`;
+    textVerdict = `⚠️ قرار مشروط بالحذر: الخطة دفترياً مقبولة والأقساط ممتازة وتحت الـ 5,500 ريال، لكن احذر من امتداد الالتزام لـ ${retirementOverlapYears.toFixed(1)} سنة بعد التقاعد.`;
   }
+  
+  banner.innerHTML = `<b>${textVerdict}</b>`;
+
+  // حفظ المعطيات للمشاركة الفورية الصافية
+  globalReportData = {
+    verdict: textVerdict,
+    installment: formatMoney(monthlyInstallmentValue) + " ريال",
+    netCash: formatMoney(netRemainingCash) + " ريال",
+    hijriDate: hijriDateResult,
+    principal: formatMoney(principalAmount) + " ريال",
+    interest: formatMoney(cumulativeInterestCost) + " ريال",
+    grandTotal: formatMoney(grandTotalDebt) + " ريال",
+    dsr: totalDSR.toFixed(1) + "%",
+    hiddenCosts: formatMoney(aggregateHiddenCosts) + " ريال"
+  };
 
   buildAmortizationScheduleRows(principalAmount, cumulativeInterestCost, loanYears, monthlyInstallmentValue);
 }
 
-// محرك هجري محصن ومستقل يعتمد على استخراج أجزاء التاريخ رقمياً بشكل معزول كلياً لتجنب الرموز الخفية
+// محرك التاريخ الهجري الرقمي
 function computeTargetHijriDate(monthsToAdd) {
   const targetDate = new Date();
   targetDate.setMonth(targetDate.getMonth() + Math.round(monthsToAdd));
-  
-  const hijriMonthsNames = [
-    "محرّم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة",
-    "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
-  ];
 
   try {
-    // استخراج أجزاء التاريخ بشكل مفرد وآمن تماماً عبر دقة التدويل الصارمة
     const formatYear = new Intl.DateTimeFormat('en-US-u-ca-islamic', { year: 'numeric' });
-    const formatMonth = new Intl.DateTimeFormat('en-US-u-ca-islamic', { month: 'numeric' });
+    const formatMonth = new Intl.DateTimeFormat('en-US-u-ca-islamic', { month: '2-digit' });
     
-    // تنظيف المخرجات من أي حروف عربية أو علامات تحكم مخفية وتحويلها لأرقام نظامية
     let hYear = parseInt(formatYear.format(targetDate).replace(/[^0-9]/g, ''));
     let hMonth = parseInt(formatMonth.format(targetDate).replace(/[^0-9]/g, ''));
 
     if (isNaN(hYear) || isNaN(hMonth)) {
-      // حل احتياطي في حال رفض المتصفح الصيغة الرقمية المعزولة
       const fallbackFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { year: 'numeric', month: 'numeric' });
       const rawString = fallbackFormatter.format(targetDate);
       const numbers = rawString.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).match(/\d+/g);
@@ -437,20 +481,60 @@ function computeTargetHijriDate(monthsToAdd) {
         hMonth = parseInt(numbers[0]);
         hYear = parseInt(numbers[1]);
       } else {
-        return "خلال " + Math.round(monthsToAdd / 12) + " سنة هجرية";
+        return "--";
       }
     }
 
-    // مطابقة الفهرس الشهرى (يبدأ من 0 إلى 11)
-    let monthIndex = hMonth - 1;
-    if (monthIndex < 0) monthIndex = 0;
-    if (monthIndex > 11) monthIndex = 11;
-
-    return `${hijriMonthsNames[monthIndex]} ${hYear} هـ`;
+    const paddingMonth = String(hMonth).padStart(2, '0');
+    return `${paddingMonth} / ${hYear} هـ`;
   } catch (e) {
-    // حزام أمان نهائي لمنع توقف الصفحة تحت أي ظرف
-    return "مقدر بـ " + Math.round(monthsToAdd / 12) + " سنة هجرية";
+    return "--";
   }
+}
+
+// تصدير النتائج بدون أي خطوط أو رموز إضافية مضللة للعميل
+function copyCleanReport() {
+  if (!globalReportData) {
+    alert("الرجاء تشغيل معالجة البيانات أولاً لإنشاء التقرير.");
+    return;
+  }
+
+  const textBodyReport = 
+`تقرير القرار الاستشاري المالي العقاري
+----------------------------------
+القرار النهائي وحالة القسط:
+${globalReportData.verdict}
+
+المؤشرات الأساسية:
+- القسط الشهري الجديد: ${globalReportData.installment}
+- الفائض المالي المعيشي المتبقي: ${globalReportData.netCash}
+- تاريخ انتهاء القسط الهجري: ${globalReportData.hijriDate}
+
+تفاصيل وهيكلة التمويل الكلية:
+- أصل التمويل العقاري المطلوب: ${globalReportData.principal}
+- إجمالي أرباح التمويل: ${globalReportData.interest}
+- المجموع الإجمالي للالتزام (أصل + أرباح): ${globalReportData.grandTotal}
+- نسبة عبء الدين الحالية DSR: ${globalReportData.dsr}
+- النقد الفوري المطلوب (سعي ورسوم وضريبة): ${globalReportData.hiddenCosts}
+----------------------------------`;
+
+  navigator.clipboard.writeText(textBodyReport).then(() => {
+    alert("📋 تم نسخ التقرير المالي المحدث بنجاح! جاهز للصق والمشاركة بدون أي هوامش رسومية.");
+  }).catch(err => {
+    const textArea = document.createElement("textarea");
+    textArea.value = textBodyReport;
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert("📋 تم نسخ التقرير المالي المحدث بنجاح!");
+    } catch (e) {
+      alert("فشل النسخ التلقائي، يرجى نسخ النص يدوياً.");
+    }
+    document.body.removeChild(textArea);
+  });
 }
 
 function buildAmortizationScheduleRows(principal, totalInterest, totalYears, monthlyCost) {
