@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>المنصة الموحدة لهندسة القرار الائتماني والاستشراف التقاعدي</title>
+<title>      </title>
 
 <style>
 :root {
@@ -231,15 +231,14 @@ input::placeholder {
 <div class="platform-container">
   
   <div class="platform-header">
-    <h1>منصة الفرز المالي المركزي المتقدمة</h1>
-    <p>النظام المؤسسي الموحد لإصدار قرارات الأهلية التمويلية وهندسة استهلاك الدين بالتقويم الهجري الرقمي</p>
+    <h1>    </h1>
+    <p>   </p>
   </div>
 
   <div class="architecture-grid">
     
-    <!-- مدخلات المنصة -->
     <div class="workspace-card">
-      <div class="section-main-title">📥 بارامترات الملف المالي العقاري</div>
+      <div class="section-main-title">📥  الملف المالي العقاري</div>
       
       <div class="input-block">
         <label>حالة الاستحقاق الضريبي للمسكن الأول</label>
@@ -250,7 +249,7 @@ input::placeholder {
       </div>
 
       <div class="input-block">
-        <label>القيمة الإجمالية المتفق عليها لبيع العقار (ريال)</label>
+        <label>القيمة الإجمالية الحالية للعقار المطلوب (ريال)</label>
         <input id="propValue" placeholder="1,500,000" />
       </div>
 
@@ -289,7 +288,6 @@ input::placeholder {
       </button>
     </div>
 
-    <!-- مخرجات المنصة والقرار الحاسم -->
     <div class="workspace-card">
       <div class="section-main-title">⚖️ وثيقة القرار التنفيذي الحاسم للملف المالي</div>
 
@@ -313,14 +311,14 @@ input::placeholder {
       </div>
 
       <table class="matrix-summary-table">
+        <tr style="background-color: rgba(16, 185, 129, 0.08); font-weight: bold;"><td class="lbl" style="color: var(--brand-green);">💰 سعر العقار المناسب والآمن لميزانيتك:</td><td class="val" id="valRecommendedProperty" style="color: var(--brand-green);">0 ريال</td></tr>
         <tr><td class="lbl">أصل مبلغ التمويل العقاري المطلوب من البنك:</td><td class="val" id="valPrincipal">0 ريال</td></tr>
         <tr><td class="lbl">إجمالي أرباح التمويل التراكمية طوال العقد:</td><td class="val" id="valTotalInterest">0 ريال</td></tr>
         <tr><td class="lbl">المجموع الكلي للالتزام المالي المقفل (أصل + أرباح):</td><td class="val" id="valGrandTotal">0 ريال</td></tr>
         <tr><td class="lbl">نسبة عبء الدين الإجمالية الحالية (DSR %):</td><td class="val" id="valDsrPercentage" style="color: var(--brand-blue);">0%</td></tr>
-        <tr><td class="lbl">الكاش الأولي المستحق فوراً (سعي + رسوم + ضريبة إن وجدت):</td><td class="val" id="valHiddenCosts" style="color: var(--brand-rose);">0 ريال</td></tr>
+        <tr><td class="lbl">(سعي + رسوم + ضريبة إن وجدت):</td><td class="val" id="valHiddenCosts" style="color: var(--brand-rose);">0 ريال</td></tr>
       </table>
 
-      <!-- زر مشاركة النتائج النصية الخام الصافية -->
       <button class="btn-share" onclick="copyCleanReport()">
         📋 نسخ التقرير المالي للمشاركة (نص صافي بدون خطوط أو ألوان)
       </button>
@@ -383,6 +381,7 @@ function calculateFinancialSystem() {
     return;
   }
 
+  // 1. حسابات التمويل الفعلي المدخل
   const principalAmount = price - down;
   const cumulativeInterestCost = principalAmount * apr * (months / 12);
   const grandTotalDebt = principalAmount + cumulativeInterestCost;
@@ -390,6 +389,12 @@ function calculateFinancialSystem() {
   const aggregatedMonthlyObligations = monthlyInstallmentValue + debts;
   const totalDSR = (aggregatedMonthlyObligations / salary) * 100;
   const netRemainingCash = salary - aggregatedMonthlyObligations;
+
+  // 2. هندسة السعر المناسب والآمن للعقار (بناء على قسط مستهدف لا يتجاوز 5500 ريال)
+  const targetSafeInstallment = 5500;
+  const safeTotalDebt = targetSafeInstallment * months;
+  const safePrincipal = safeTotalDebt / (1 + (apr * (months / 12)));
+  const recommendedPropertyPrice = safePrincipal + down;
 
   const propertyTax = (taxStatus === 'taxable') ? price * 0.05 : 0;
   const brokerageFee = price * 0.025;
@@ -401,10 +406,12 @@ function calculateFinancialSystem() {
 
   const hijriDateResult = computeTargetHijriDate(months);
 
+  // تحديث شاشة العرض
   getBox('displayInstallment').textContent = formatMoney(monthlyInstallmentValue) + " ريال";
   getBox('displayNetCash').textContent = formatMoney(netRemainingCash) + " ريال";
   getBox('displayHijriDate').textContent = hijriDateResult;
 
+  getBox('valRecommendedProperty').textContent = formatMoney(recommendedPropertyPrice) + " ريال";
   getBox('valPrincipal').textContent = formatMoney(principalAmount) + " ريال";
   getBox('valTotalInterest').textContent = formatMoney(cumulativeInterestCost) + " ريال";
   getBox('valGrandTotal').textContent = formatMoney(grandTotalDebt) + " ريال";
@@ -417,7 +424,6 @@ function calculateFinancialSystem() {
   
   let textVerdict = "";
 
-  // شروط الفرز المالي المدمج بها قواعد فحص سقف الأقساط الجديدة
   if (monthlyInstallmentValue > 6000) {
     banner.className = "verdict-banner verdict-critical";
     textVerdict = `❌ قرار حرج (تجاوز السقف الأعلى): القسط الشهري الحالي (${formatMoney(monthlyInstallmentValue)} ريال) تجاوز حاجز 6,000 ريال، وهذا يمثل عبئاً مالياً خطيراً ولا يُنصح به نهائياً.`;
@@ -445,9 +451,11 @@ function calculateFinancialSystem() {
   
   banner.innerHTML = `<b>${textVerdict}</b>`;
 
-  // حفظ المعطيات للمشاركة الفورية الصافية
+  // حفظ المعطيات للمشاركة الفورية الصافية شاملة السعر المناسب والآمن للعقار
   globalReportData = {
     verdict: textVerdict,
+    recommendedPrice: formatMoney(recommendedPropertyPrice) + " ريال",
+    currentPrice: formatMoney(price) + " ريال",
     installment: formatMoney(monthlyInstallmentValue) + " ريال",
     netCash: formatMoney(netRemainingCash) + " ريال",
     hijriDate: hijriDateResult,
@@ -461,7 +469,7 @@ function calculateFinancialSystem() {
   buildAmortizationScheduleRows(principalAmount, cumulativeInterestCost, loanYears, monthlyInstallmentValue);
 }
 
-// محرك التاريخ الهجري الرقمي
+// محرك التاريخ الهجري الرقمي الصرف
 function computeTargetHijriDate(monthsToAdd) {
   const targetDate = new Date();
   targetDate.setMonth(targetDate.getMonth() + Math.round(monthsToAdd));
@@ -492,7 +500,7 @@ function computeTargetHijriDate(monthsToAdd) {
   }
 }
 
-// تصدير النتائج بدون أي خطوط أو رموز إضافية مضللة للعميل
+// تصدير النتائج نصياً للمشاركة بدون هوامش أو ألوان زائدة
 function copyCleanReport() {
   if (!globalReportData) {
     alert("الرجاء تشغيل معالجة البيانات أولاً لإنشاء التقرير.");
@@ -504,6 +512,10 @@ function copyCleanReport() {
 ----------------------------------
 القرار النهائي وحالة القسط:
 ${globalReportData.verdict}
+
+توصية حدود العقار:
+- سعر العقار المناسب والآمن لك: ${globalReportData.recommendedPrice} (ليكون قسطك في حدود 5500 ريال)
+- سعر العقار الحالي المدخل: ${globalReportData.currentPrice}
 
 المؤشرات الأساسية:
 - القسط الشهري الجديد: ${globalReportData.installment}
@@ -519,7 +531,7 @@ ${globalReportData.verdict}
 ----------------------------------`;
 
   navigator.clipboard.writeText(textBodyReport).then(() => {
-    alert("📋 تم نسخ التقرير المالي المحدث بنجاح! جاهز للصق والمشاركة بدون أي هوامش رسومية.");
+    alert("📋 تم نسخ التقرير المالي بنجاح! متضمنًا سعر العقار المناسب، وجاهز للمشاركة بدون أي تشتيت بصري.");
   }).catch(err => {
     const textArea = document.createElement("textarea");
     textArea.value = textBodyReport;
