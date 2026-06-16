@@ -3,138 +3,138 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>نظام الاستشراف المالي والهندسة العقارية المتقدمة</title>
+<title>المنصة الموحدة لهندسة القرار الائتماني والاستشراف التقاعدي</title>
 
 <style>
 :root {
-  --bg-main: #0b1329;
-  --bg-card: #1c2541;
-  --bg-input: #0b1329;
-  --border-color: #3a506b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent-blue: #38bdf8;
-  --accent-green: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #ef4444;
+  --bg-deep: #070a13;
+  --bg-panel: #111827;
+  --bg-box: #1f2937;
+  --border-glow: #374151;
+  
+  /* ألوان نظام الإشارات المرورية للقرار الحاسم */
+  --brand-blue: #38bdf8;
+  --brand-green: #10b981;
+  --brand-amber: #f59e0b;
+  --brand-rose: #ef4444;
+  
+  --text-pure: #ffffff;
+  --text-muted: #9ca3af;
 }
 
+/* ضبط انسيابي لمنع خروج المربعات نهائياً عن الحواف كما في image.png */
 * {
   box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body {
-  background-color: var(--bg-main);
-  color: var(--text-primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  margin: 0;
-  padding: 0;
+  background-color: var(--bg-deep);
+  color: var(--text-pure);
+  padding: 40px 20px;
   line-height: 1.6;
 }
 
-.container {
+@media (max-width: 480px) {
+  body { padding: 15px 10px; }
+}
+
+.platform-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px 20px;
 }
 
-@media (max-width: 480px) {
-  .container { padding: 15px 10px; }
-}
-
-/* الهيدر الاحترافي */
-.main-header {
+/* الهيدر الاستشاري */
+.platform-header {
   text-align: center;
-  margin-bottom: 40px;
-  background: linear-gradient(135deg, #1e293b, var(--bg-card));
-  padding: 30px;
+  margin-bottom: 35px;
+  background: linear-gradient(180deg, #111827 0%, rgba(17,24,39,0.7) 100%);
+  padding: 25px;
   border-radius: 20px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-glow);
 }
-.main-header h1 {
-  margin: 0 0 10px 0;
-  font-size: 28px;
-  color: var(--accent-blue);
+.platform-header h1 {
+  font-size: 26px;
   font-weight: 800;
+  color: var(--brand-blue);
+  margin-bottom: 8px;
 }
-.main-header p {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: 15px;
+.platform-header p {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
-/* التقسيم الشبكي الضخم للمنصة */
-.dashboard-layout {
+/* توزيع الشاشات العريض والذكي */
+.architecture-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr 1.4fr;
   gap: 30px;
 }
 
 @media (max-width: 1024px) {
-  .dashboard-layout { grid-template-columns: 1fr; }
+  .architecture-grid { grid-template-columns: 1fr; }
 }
 
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+.workspace-card {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-glow);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 480px) {
-  .card { padding: 15px; border-radius: 15px; }
+  .workspace-card { padding: 16px; border-radius: 16px; }
 }
 
-.card-title {
+.section-main-title {
   font-size: 18px;
   font-weight: 700;
-  margin-top: 0;
   margin-bottom: 25px;
   padding-bottom: 12px;
-  border-bottom: 2px solid var(--border-color);
-  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-glow);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
-/* حل جذري لمشاكل أبعاد المربعات لمنع خروجها عن الإطار */
-.form-group {
-  margin-bottom: 22px;
+/* تصميم المربعات لمنع التداخل وحساب الـ Padding داخلياً */
+.input-block {
+  margin-bottom: 20px;
   width: 100%;
 }
-.form-group label {
+.input-block label {
   display: block;
   font-size: 13.5px;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   margin-bottom: 8px;
   font-weight: 500;
 }
 input, select {
   width: 100%;
-  padding: 14px 16px;
-  background-color: var(--bg-input);
-  border: 2px solid var(--border-color);
+  padding: 15px 18px;
+  background-color: var(--bg-deep);
+  border: 2px solid var(--border-glow);
   border-radius: 12px;
   color: #fff;
   font-size: 16px;
   font-weight: 600;
   text-align: center;
+  transition: all 0.2s ease;
 }
 input:focus, select:focus {
   outline: none;
-  border-color: var(--accent-blue);
+  border-color: var(--brand-blue);
   box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
 }
 input::placeholder {
-  color: #475569;
-  opacity: 0.8;
+  color: #4b5563;
+  opacity: 0.9;
 }
 
-/* الأزرار الاحترافية */
-.btn-primary {
+.action-btn-trigger {
   width: 100%;
   background: linear-gradient(135deg, #0284c7, #0369a1);
   color: #fff;
@@ -144,223 +144,195 @@ input::placeholder {
   font-weight: 700;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+  margin-top: 10px;
 }
-.btn-primary:hover {
+.action-btn-trigger:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+  box-shadow: 0 6px 22px rgba(2, 132, 199, 0.4);
 }
 
-/* نظام مصفوفة القرار والمخاطر التلقائي */
-.status-shield {
-  padding: 20px;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: 700;
+/* لوحة الحكم المركزي الضخمة (تمنع التوهان وتمنح قراراً فورياً) */
+.verdict-banner {
+  padding: 24px;
+  border-radius: 16px;
   text-align: center;
+  font-size: 18px;
+  font-weight: 800;
   margin-bottom: 25px;
   border: 1px solid transparent;
+  line-height: 1.6;
 }
-.shield-neutral { background: #1e293b; color: var(--text-secondary); border-color: var(--border-color); }
-.shield-success { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); border-color: rgba(16, 185, 129, 0.3); }
-.shield-warning { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.3); }
-.shield-danger { background: rgba(239, 44, 44, 0.1); color: var(--accent-rose); border-color: rgba(239, 44, 44, 0.3); }
+.verdict-initial { background: #1f2937; color: var(--text-muted); border-color: var(--border-glow); }
+.verdict-safe { background: rgba(16, 185, 129, 0.15); color: var(--brand-green); border-color: rgba(16, 185, 129, 0.4); }
+.verdict-caution { background: rgba(245, 158, 11, 0.15); color: var(--brand-amber); border-color: rgba(245, 158, 11, 0.4); }
+.verdict-critical { background: rgba(239, 44, 44, 0.15); color: var(--brand-rose); border-color: rgba(239, 44, 44, 0.4); }
 
-/* العدادات البيانية السريعة KPI */
-.metrics-grid {
+/* مكعبات الجدارة الثلاثية لعدم تشتيت العميل */
+.pillar-cube-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-bottom: 25px;
 }
-@media (max-width: 480px) {
-  .metrics-grid { grid-template-columns: 1fr; }
+@media (max-width: 640px) {
+  .pillar-cube-grid { grid-template-columns: 1fr; }
 }
-.metric-box {
-  background: var(--bg-input);
-  border: 1px solid var(--border-color);
-  padding: 15px;
-  border-radius: 12px;
+.cube-item {
+  background: var(--bg-deep);
+  border: 1px solid var(--border-glow);
+  padding: 18px 12px;
+  border-radius: 14px;
   text-align: center;
 }
-.metric-box p { margin: 0 0 5px 0; font-size: 13px; color: var(--text-secondary); }
-.metric-box h3 { margin: 0; font-size: 18px; color: #fff; font-weight: 700; }
+.cube-item p { margin-bottom: 6px; font-size: 12.5px; color: var(--text-muted); font-weight: 500; }
+.cube-item h3 { font-size: 18px; color: #fff; font-weight: 700; }
 
-/* شريط التوزيع المالي المحسّن */
-.distribution-bar-container {
-  background: var(--bg-input);
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-  border: 1px solid var(--border-color);
-}
-.bar-title { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; text-align: center;}
-.bar-flex { display: flex; height: 24px; border-radius: 8px; overflow: hidden; background: #334155; }
-.bar-part { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: #fff; }
-
-/* جدول تفصيلي للمخرجات */
-.output-table {
+/* جداول الهيكلة الرأسمالية والمخاطر المخفية */
+.matrix-summary-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 25px;
 }
-.output-table tr { border-bottom: 1px solid var(--border-color); }
-.output-table tr:last-child { border-bottom: none; }
-.output-table td { padding: 12px 8px; font-size: 14px; }
-.output-table td.val { text-align: left; font-weight: 700; color: #fff; white-space: nowrap; }
-.output-table td.lbl { color: var(--text-secondary); }
+.matrix-summary-table tr { border-bottom: 1px solid var(--border-glow); }
+.matrix-summary-table tr:last-child { border-bottom: none; }
+.matrix-summary-table td { padding: 14px 10px; font-size: 14px; }
+.matrix-summary-table td.val { text-align: left; font-weight: 700; color: #fff; }
+.matrix-summary-table td.lbl { color: var(--text-muted); }
 
-/* محاكاة الأزمات (Stress Testing) */
-.stress-section {
-  background: linear-gradient(180deg, rgba(239, 44, 44, 0.05), transparent);
-  border: 1px dashed var(--accent-rose);
-  padding: 20px;
-  border-radius: 14px;
-  margin-bottom: 25px;
-}
-.stress-title { color: var(--accent-rose); font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-
-/* جدول استهلاك القرض الضخم للسنوات */
-.table-wrapper {
+/* حاوية الاستهلاك السنوي المتقدمة */
+.table-scroll-container {
   overflow-x: auto;
-  margin-top: 20px;
-  background: var(--bg-input);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
+  background: var(--bg-deep);
+  border-radius: 14px;
+  border: 1px solid var(--border-glow);
+  margin-top: 15px;
 }
-.amortization-table {
+.report-data-table {
   width: 100%;
   border-collapse: collapse;
   text-align: center;
   font-size: 13px;
 }
-.amortization-table th { background: #1e293b; color: var(--accent-blue); padding: 12px; font-weight: 600; }
-.amortization-table td { padding: 10px; border-bottom: 1px solid var(--border-color); color: var(--text-primary); }
+.report-data-table th { background: #1f2937; color: var(--brand-blue); padding: 12px; font-weight: 600; border-bottom: 1px solid var(--border-glow); }
+.report-data-table td { padding: 11px; border-bottom: 1px solid var(--border-glow); }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="platform-container">
   
-  <div class="main-header">
-    <h1>النظام المركزي المتكامل للتحليل المالي والهندسة العقارية</h1>
-    <p>منصة مؤسسية مخصصة لاحتساب الجدارة الائتمانية، وهيكلة السيولة، ومحاكاة المخاطر لمدد القروض المتداخلة مع التقاعد</p>
+  <div class="platform-header">
+    <h1>منصة الفرز المالي المركزي المتقدمة</h1>
+    <p>النظام المؤسسي الموحد لإصدار قرارات الأهلية التمويلية وهندسة استهلاك الدين بالتقويم الهجري الرقمي</p>
   </div>
 
-  <div class="dashboard-layout">
+  <div class="architecture-grid">
     
-    <!-- لوحة التحكم بالمدخلات (تمنع التداخل) -->
-    <div class="card">
-      <div class="card-title">📥 معطيات الملف المالي والأصل العقاري</div>
+    <!-- حقل المدخلات الهندسي (ثابت ومقاوم لتشوهات الشاشات) -->
+    <div class="workspace-card">
+      <div class="section-main-title">📥 بارامترات الملف المالي العقاري</div>
       
-      <div class="form-group">
-        <label>الإعفاء الضريبية للمسكن الأول</label>
-        <select id="isFirstHome">
-          <option value="yes">نعم - العميل مستحق للدعم (إعفاء من ضريبة التصرفات العقارية)</option>
-          <option value="no">لا - العقار استثماري / مسكن إضافي (تطبيق ضريبة 5%)</option>
+      <div class="input-block">
+        <label>حالة الاستحقاق الضريبي للمسكن الأول</label>
+        <select id="taxStatus">
+          <option value="exempt">نعم - العقار مسكن أول (مشمول بالإعفاء من الضريبة)</option>
+          <option value="taxable">لا - عقار إضافي / استثماري (يخضع لضريبة التصرفات 5%)</option>
         </select>
       </div>
 
-      <div class="form-group">
-        <label>القيمة الإجمالية للعقار المستهدف (ريال)</label>
-        <input id="assetPrice" placeholder="1,500,000" />
+      <div class="input-block">
+        <label>القيمة الإجمالية المتفق عليها لبيع العقار (ريال)</label>
+        <input id="propValue" placeholder="1,500,000" />
       </div>
 
-      <div class="form-group">
-        <label>الدفعة النقدية الأولى المتوفرة كاش (ريال)</label>
-        <input id="downPayment" placeholder="300,000" />
+      <div class="input-block">
+        <label>الدفعة النقدية الأولى المقدمة + الدعم السكني (ريال)</label>
+        <input id="cashDown" placeholder="300,000" />
       </div>
 
-      <div class="form-group">
-        <label>الصافي الفعلي للمرتب الشهري المودع بالبنك (ريال)</label>
-        <input id="monthlySalary" placeholder="18,500" />
+      <div class="input-block">
+        <label>صافي راتبك الشهري الحالي المودع في البنك (ريال)</label>
+        <input id="userSalary" placeholder="18,500" />
       </div>
 
-      <div class="form-group">
-        <label>إجمالي الالتزامات والأقساط الاستهلاكية الحالية (ريال)</label>
-        <input id="currentDebts" placeholder="0" />
+      <div class="input-block">
+        <label>إجمالي التزاماتك وأقساطك الشهرية القائمة حالياً (ريال)</label>
+        <input id="userDebts" placeholder="0" />
       </div>
 
-      <div class="form-group">
-        <label>أجل التمويل المقترح بالعقد (بالأشهر)</label>
-        <input id="loanMonths" placeholder="240" />
+      <div class="input-block">
+        <label>مدة عقد التمويل العقاري المطلوبة (بالأشهر)</label>
+        <input id="loanMonthsDuration" placeholder="240" />
       </div>
 
-      <div class="form-group">
-        <label>عدد سنوات الخدمة المتبقية حتى تاريخ التقاعد النظامي</label>
-        <input id="yearsToRetire" placeholder="15" />
+      <div class="input-block">
+        <label>عدد السنوات المتبقية لك في الخدمة حتى التقاعد (سنة)</label>
+        <input id="serviceYearsLeft" placeholder="15" />
       </div>
 
-      <div class="form-group">
-        <label>معدل النسبة السنوية للمرابحة التمويلية APR (%)</label>
-        <input id="aprRate" placeholder="4.25" />
+      <div class="input-block">
+        <label>معدل النسبة السنوية للمرابحة البنكية APR (%)</label>
+        <input id="interestRateApr" placeholder="4.25" />
       </div>
 
-      <button class="btn-primary" onclick="runComprehensiveEngine()">
-        ⚡ تشغيل محرك المعالجة الشامل وإصدار المصفوفة
+      <button class="action-btn-trigger" onclick="calculateFinancialSystem()">
+        🧠 معالجة وتحليل البيانات وإصدار القرار الفوري
       </button>
     </div>
 
-    <!-- لوحة المخرجات المتقدمة والجداول الاستشارية -->
-    <div class="card">
-      <div class="card-title">📊 شاشة مخرجات القرار واستشراف المستقبل</div>
+    <!-- لوحة عرض القرارات الصارمة بدون تشتيت أو توهان للمستخدم -->
+    <div class="workspace-card">
+      <div class="section-main-title">⚖️ وثيقة القرار التنفيذي الحاسم للملف المالي</div>
 
-      <div id="statusShield" class="status-shield shield-neutral">
-        الرجاء إدخال البيانات للبدء في التحليل الإستراتيجي للملف المالي
+      <!-- بانر الحكم النهائي الموحد -->
+      <div id="verdictShield" class="verdict-banner verdict-initial">
+        الرجاء تعبئة بيانات الملف الائتماني على اليمين لتوليد الحكم الاستشاري المركزي وتحديد الأهلية.
       </div>
 
-      <div class="metrics-grid">
-        <div class="metric-box">
-          <p>القسط الشهري الجديد المقدر</p>
-          <h3 id="mInstallment" style="color: var(--accent-blue);">0 ريال</h3>
+      <!-- مكعبات الجدارة الثلاثية الكبرى (الركائز الأساسية) -->
+      <div class="pillar-cube-grid">
+        <div class="cube-item">
+          <p>قسط العقار الجديد شهرياً</p>
+          <h3 id="displayInstallment" style="color: var(--brand-blue);">0 ريال</h3>
         </div>
-        <div class="metric-box">
-          <p>نسبة الاستقطاع الإجمالية DSR</p>
-          <h3 id="dsrPercentage">0%</h3>
+        <div class="cube-item">
+          <p>الفائض المعيشي الحر المتبقي</p>
+          <h3 id="displayNetCash" style="color: var(--brand-green);">0 ريال</h3>
         </div>
-      </div>
-
-      <div class="distribution-bar-container">
-        <div class="bar-title">📊 المخطط الهيكلي لتوزيع الراتب شهرياً:</div>
-        <div class="bar-flex">
-          <div id="barDebts" class="bar-part" style="width: 0%; background: var(--accent-rose);"></div>
-          <div id="barRent" class="bar-part" style="width: 0%; background: var(--accent-blue);"></div>
-          <div id="barSavings" class="bar-part" style="width: 0%; background: var(--accent-green);"></div>
+        <div class="cube-item">
+          <p>تاريخ نهاية القسط (بالهجري)</p>
+          <h3 id="displayHijriDate" style="color: var(--brand-amber);">--</h3>
         </div>
       </div>
 
-      <table class="output-table">
-        <tr><td class="lbl">مبلغ القرض الأساسي (أصل المديونية):</td><td class="val" id="outLoanPrincipal">0 ريال</td></tr>
-        <tr><td class="lbl">إجمالي الأرباح وعوائد التمويل المتراكمة:</td><td class="val" id="outTotalInterest">0 ريال</td></tr>
-        <tr><td class="lbl">المجموع الكلي للمبالغ المستحقة سدادها:</td><td class="val" id="outTotalRepayment">0 ريال</td></tr>
-        <tr><td class="lbl">الفائض المالي المعيشي الحر المتبقي:</td><td class="val" id="outRemainingCash">0 ريال</td></tr>
-        <tr><td class="lbl">تكاليف الكاش الفوري (سعي + رسوم إدارية + ضريبة):</td><td class="val" id="outHiddenCosts" style="color: var(--accent-amber);">0 ريال</td></tr>
+      <!-- جدول مصفوفة البيانات التفصيلية لمن يبحث عن الأرقام الكلية -->
+      <table class="matrix-summary-table">
+        <tr><td class="lbl">أصل مبلغ التمويل العقاري المطلوب من البنك:</td><td class="val" id="valPrincipal">0 ريال</td></tr>
+        <tr><td class="lbl">إجمالي أرباح التمويل التراكمية طوال العقد:</td><td class="val" id="valTotalInterest">0 ريال</td></tr>
+        <tr><td class="lbl">المجموع الكلي للالتزام المالي المقفل (أصل + أرباح):</td><td class="val" id="valGrandTotal">0 ريال</td></tr>
+        <tr><td class="lbl">نسبة عبء الدين الإجمالية الحالية (DSR %):</td><td class="val" id="valDsrPercentage" style="color: var(--brand-blue);">0%</td></tr>
+        <tr><td class="lbl">الكاش الأولي المستحق فوراً (سعي + رسوم + ضريبة إن وجدت):</td><td class="val" id="valHiddenCosts" style="color: var(--brand-rose);">0 ريال</td></tr>
       </table>
 
-      <!-- محاكي الأزمات واختبار الجهد التلقائي -->
-      <div class="stress-section" id="stressZone" style="display: none;">
-        <div class="stress-title">⚠️ نتيجة اختبار الجهد المالي المتقدم (Stress Test):</div>
-        <div id="stressFeedback" style="font-size: 13.5px; color: #cbd5e1;"></div>
+      <!-- الخطة الزمنية لاستهلاك أصل الدين وتوزيع الأرباح السنوية -->
+      <div class="section-main-title" style="margin-top: 15px; font-size: 15px; border-bottom: 1px solid var(--border-glow); padding-bottom: 6px;">
+        📅 الخطة الهيكلية لتلاشي رصيد المديونية واستهلاك الأرباح سنوياً
       </div>
-
-      <!-- جدول الاستهلاك السنوي الديناميكي المفصل -->
-      <div class="card-title" style="margin-top: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-        📅 جدول استهلاك المديونية وتلاشي أصل الدين (سنوياً)
-      </div>
-      <div class="table-wrapper">
-        <table class="amortization-table">
+      <div class="table-scroll-container">
+        <table class="report-data-table">
           <thead>
             <tr>
               <th>السنة</th>
-              <th>رصيد أول المدة</th>
-              <th>المدفوعات التراكمية</th>
-              <th>أرباح مستقطعة</th>
-              <th>رصيد آخر المدة</th>
+              <th>رصيد أول السنة</th>
+              <th>المسدد التراكمي</th>
+              <th>الأرباح المحتسبة</th>
+              <th>رصيد الإغلاق المتبقي</th>
             </tr>
           </thead>
-          <tbody id="amortizationBody">
+          <tbody id="amortizationTableContent">
             <tr>
-              <td colspan="5" style="color: var(--text-secondary); padding: 20px;">قم باحتساب البيانات لتوليد خطة الاستهلاك الاستراتيجي للتمويل.</td>
+              <td colspan="5" style="color: var(--text-muted); padding: 25px;">في انتظار معالجة المعطيات التمويلية لبناء جدول الاستهلاك الاستشرافي.</td>
             </tr>
           </tbody>
         </table>
@@ -372,132 +344,171 @@ input::placeholder {
 </div>
 
 <script>
-// أدوات معالجة النصوص والأرقام الاحترافية لمنع أخطاء المدخلات
-const getElement = id => document.getElementById(id);
-function numClean(val) { return parseFloat(String(val).replace(/,/g, '')) || 0; }
-function numFormat(val) { return Math.round(val).toLocaleString('en-US'); }
+// خوارزمية تنظيف وتأمين المدخلات الائتمانية لتفادي التداخل والأخطاء الحسابية
+const getBox = id => document.getElementById(id);
+function cleanNum(v) { return parseFloat(String(v).replace(/,/g, '')) || 0; }
+function formatMoney(v) { return Math.round(v).toLocaleString('en-US'); }
 
-function setupMask(id) {
-  const el = getElement(id);
-  el.addEventListener('input', () => {
-    let raw = el.value.replace(/[^0-9]/g, '');
-    el.value = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function applyInputMask(id) {
+  const element = getBox(id);
+  element.addEventListener('input', () => {
+    let cleanValues = element.value.replace(/[^0-9]/g, '');
+    element.value = cleanValues.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   });
 }
-['assetPrice', 'downPayment', 'monthlySalary', 'currentDebts', 'loanMonths', 'yearsToRetire'].forEach(setupMask);
+['propValue', 'cashDown', 'userSalary', 'userDebts', 'loanMonthsDuration', 'serviceYearsLeft'].forEach(applyInputMask);
 
-// محرك الحسابات الرئيسي الضخم
-function runComprehensiveEngine() {
-  const isFirstHome = getElement('isFirstHome').value;
-  const asset = numClean(getElement('assetPrice').value);
-  const down = numClean(getElement('downPayment').value);
-  const salary = numClean(getElement('monthlySalary').value);
-  const debts = numClean(getElement('currentDebts').value);
-  const months = numClean(getElement('loanMonths').value);
-  const retireYears = numClean(getElement('yearsToRetire').value);
-  const apr = parseFloat(getElement('aprRate').value) / 100 || 0;
+// محرك المعالجة الشامل وإصدار الأحكام الائتمانية والتقويم الهجري
+function calculateFinancialSystem() {
+  const taxStatus = getBox('taxStatus').value;
+  const price = cleanNum(getBox('propValue').value);
+  const down = cleanNum(getBox('cashDown').value);
+  const salary = cleanNum(getBox('userSalary').value);
+  const debts = cleanNum(getBox('userDebts').value);
+  const months = cleanNum(getBox('loanMonthsDuration').value);
+  const serviceYears = cleanNum(getBox('serviceYearsLeft').value);
+  const apr = parseFloat(getBox('interestRateApr').value) / 100 || 0;
 
-  if (!asset || !salary || !months || !retireYears) {
-    alert("الرجاء استكمال تعبئة الحقول الأساسية لتشغيل الخوارزمية الحسابية الضخمة.");
+  if (!price || !salary || !months || !serviceYears) {
+    alert("تنبيه نظام الأمان: يرجى إدخال كافة المتغيرات الحيوية (القيمة، الراتب، أشهر التمويل، وسنوات الخدمة) لضمان إصدار قرار سليم.");
     return;
   }
 
-  // حسابات القرض الأساسية هيدروليكياً
-  const principal = asset - down;
-  const totalInterest = principal * apr * (months / 12);
-  const totalRepayment = principal + totalInterest;
-  const monthlyInstallment = totalRepayment / months;
-  const totalDSR = ((monthlyInstallment + debts) / salary) * 100;
-  const remainingCash = salary - (monthlyInstallment + debts);
-  
-  // حساب الرسوم الجانبية والكاش المطلوب فوراً
-  const tax = (isFirstHome === 'no') ? asset * 0.05 : 0;
-  const commission = asset * 0.025;
-  const adminFees = 5000;
-  const totalHiddenCosts = tax + commission + adminFees;
+  // الاحتسابات الرياضية الهيكلية
+  const principalAmount = price - down;
+  const cumulativeInterestCost = principalAmount * apr * (months / 12);
+  const grandTotalDebt = principalAmount + cumulativeInterestCost;
+  const monthlyInstallmentValue = grandTotalDebt / months;
+  const aggregatedMonthlyObligations = monthlyInstallmentValue + debts;
+  const totalDSR = (aggregatedMonthlyObligations / salary) * 100;
+  const netRemainingCash = salary - aggregatedMonthlyObligations;
+
+  // احتساب تكاليف النقد الفوري المطلوب خارج القرض
+  const propertyTax = (taxStatus === 'taxable') ? price * 0.05 : 0;
+  const brokerageFee = price * 0.025;
+  const administrativeFees = 5000;
+  const aggregateHiddenCosts = propertyTax + brokerageFee + administrativeFees;
 
   const loanYears = months / 12;
-  const overlapYears = Math.max(0, loanYears - retireYears);
+  const retirementOverlapYears = Math.max(0, loanYears - serviceYears);
 
-  // عرض الأرقام في الجدول والعدادات
-  getElement('mInstallment').textContent = numFormat(monthlyInstallment) + " ريال";
-  getElement('dsrPercentage').textContent = totalDSR.toFixed(1) + "%";
-  getElement('outLoanPrincipal').textContent = numFormat(principal) + " ريال";
-  getElement('outTotalInterest').textContent = numFormat(totalInterest) + " ريال";
-  getElement('outTotalRepayment').textContent = numFormat(totalRepayment) + " ريال";
-  getElement('outRemainingCash').textContent = numFormat(remainingCash) + " ريال";
-  getElement('outHiddenCosts').textContent = numFormat(totalHiddenCosts) + " ريال";
-
-  // تفعيل شريط التوزيع المالي بنسب دقيقة وموزونة
-  const pDebts = Math.min((debts / salary) * 100, 100);
-  const pRent = Math.min((monthlyInstallment / salary) * 100, 100 - pDebts);
-  const pSavings = Math.max(0, 100 - (pDebts + pRent));
-
-  getElement('barDebts').style.width = pDebts + "%";
-  getElement('barDebts').textContent = pDebts > 7 ? Math.round(pDebts) + "%" : "";
-  getElement('barRent').style.width = pRent + "%";
-  getElement('barRent').textContent = pRent > 7 ? Math.round(pRent) + "%" : "";
-  getElement('barSavings').style.width = pSavings + "%";
-  getElement('barSavings').textContent = pSavings > 7 ? Math.round(pSavings) + "%" : "";
-
-  // محرك اتخاذ القرار وتصنيف المخاطر الاستراتيجية لدرع الحماية
-  const shield = getElement('statusShield');
-  if (totalDSR <= 45 && overlapYears === 0 && remainingCash >= 4500) {
-    shield.className = "status-shield shield-success";
-    shield.textContent = "🟢 ملف ائتماني ممتاز وعالي الأمان العقاري الاستراتيجي (مطابق للمعايير الآمنة).";
-  } else if (overlapYears > 0 && totalDSR > 55) {
-    shield.className = "status-shield shield-danger";
-    shield.textContent = `❌ خطر تمويلي داهم: القرض يمتد لـ ${overlapYears.toFixed(1)} سنة بعد التقاعد مع تجاوز استقطاع الأمان الحرج. نوصي بتعديل الميزانية فوراً.`;
-  } else {
-    shield.className = "status-shield shield-warning";
-    shield.textContent = "⚠️ خطة مالية متوسطة المخاطر: يرجى الحذر من امتداد الالتزام لزمن التقاعد أو ضيق الفائض المالي المتبقي للمعيشة.";
-  }
-
-  // خوارزمية اختبار الجهد والأزمات (Stress Testing Simulation)
-  getElement('stressZone').style.display = "block";
-  const salaryDropTest = salary * 0.80; 
-  const newDsrTest = ((monthlyInstallment + debts) / salaryDropTest) * 100;
-  let stressHTML = `في حال انخفاض دخلك المستقبلي أو المعاش التقاعدي بنسبة 20% ليصبح (<span style="color:var(--accent-amber); font-weight:bold;">${numFormat(salaryDropTest)} ريال</span>)، ستتصاعد نسبة الاستقطاع لديك من دخل الجديد مباشرة إلى <span style="font-weight:bold; color:${newDsrTest > 65 ? 'var(--accent-rose)' : 'var(--accent-amber)'};">${newDsrTest.toFixed(1)}%</span>. `;
+  // تحديث مكعبات المخرجات السريعة
+  getBox('displayInstallment').textContent = formatMoney(monthlyInstallmentValue) + " ريال";
+  getBox('displayNetCash').textContent = formatMoney(netRemainingCash) + " ريال";
   
-  if (newDsrTest > 65) {
-    stressHTML += "⚠️ <b>تحذير اختبار الجهد:</b> هذه النسبة ستضعك في نطاق العجز المالي الخطير، يفضل تقليل مبلغ التمويل المطلوب عبر توفير دفعة أولى أكبر.";
-  } else {
-    stressHTML += "✅ <b>مؤشر إيجابي:</b> ميزانيتك قادرة على امتصاص الصدمات المالية بمرونة مقبولة.";
-  }
-  getElement('stressFeedback').innerHTML = stressHTML;
+  // تفعيل محرك التقويم الهجري الدقيق لزمن انتهاء آخر قسط
+  getBox('displayHijriDate').textContent = computeTargetHijriDate(months);
 
-  // توليد جدول الاستهلاك السنوي المتطور والضخم للدين
-  generateAmortizationSchedule(principal, totalInterest, loanYears, monthlyInstallment);
+  // تحديث جدول المخرجات الأساسي
+  getBox('valPrincipal').textContent = formatMoney(principalAmount) + " ريال";
+  getBox('valTotalInterest').textContent = formatMoney(cumulativeInterestCost) + " ريال";
+  getBox('valGrandTotal').textContent = formatMoney(grandTotalDebt) + " ريال";
+  getBox('valDsrPercentage').textContent = totalDSR.toFixed(1) + "%";
+  getBox('valHiddenCosts').textContent = formatMoney(aggregateHiddenCosts) + " ريال";
+
+  // خوارزمية فرز "الإشارات المرورية" لإصدار الحكم الحاسم وتفادي التوهان
+  const banner = getBox('verdictShield');
+  const estimatedRetirementSalary = salary * 0.70;
+  const dsrAtRetirementTime = (monthlyInstallmentValue / estimatedRetirementSalary) * 100;
+
+  if (totalDSR <= 45 && retirementOverlapYears === 0 && netRemainingCash >= 4500) {
+    banner.className = "verdict-banner verdict-safe";
+    banner.innerHTML = "🟢 <b>قرار معتمد (آمن كلياً):</b> ملفك الائتماني متزن ومطابق للملاءة المالية. القرض ينتهي بالكامل قبل بلوغ سن التقاعد النظامي، والفائض المعيشي ممتاز.";
+  } 
+  else if (retirementOverlapYears > 0 && dsrAtRetirementTime > 65) {
+    banner.className = "verdict-banner verdict-critical";
+    banner.innerHTML = `❌ <b>قرار حرج (مخاطر تقاعدية داهمة):</b> العقد يمتد لـ ${retirementOverlapYears.toFixed(1)} سنة داخل زمن تقاعدك، وسيلتهم حوالي ${dsrAtRetirementTime.toFixed(0)}% من معاشك التقاعدي المخفض! نوصي بخفض قيمة العقار أو زيادة الدفعة الأولى فوراً لحماية مستقبلك.`;
+  } 
+  else if (totalDSR > 60 || netRemainingCash < 3000) {
+    banner.className = "verdict-banner verdict-critical";
+    banner.innerHTML = `❌ <b>قرار حرج (تجاوز حد الأمان الائتماني):</b> نسبة الاستقطاع الحالية خانقة وتتجاوز خطوط الأمان، مما يهدد السيولة اليومية للأسرة بشكل مباشر.`;
+  } 
+  else {
+    banner.className = "verdict-banner verdict-caution";
+    banner.innerHTML = `⚠️ <b>قرار مشروط بالحذر التشغيلي:</b> الخطة مقبولة دفترياً، لكن احذر من امتداد الأقساط لـ ${retirementOverlapYears.toFixed(1)} سنة بعد التقاعد، أو ضغط الميزانية المعيشية الحالية المتبقية لتغطية الالتزامات الطارئة.`;
+  }
+
+  // بناء جدول الاستهلاك السنوي الديناميكي المتقدم
+  buildAmortizationScheduleRows(principalAmount, cumulativeInterestCost, loanYears, monthlyInstallmentValue);
 }
 
-function generateAmortizationSchedule(principal, totalInterest, totalYears, annualInstallmentCost) {
-  const tbody = getElement('amortizationBody');
-  tbody.innerHTML = "";
+// محرك التقويم الهجري الحسابي المتطور للربط بالأشهر الدولية وتصدير مخرجات دقيقة ونصية بالكامل
+function computeTargetHijriDate(monthsToAdd) {
+  const targetCalendarDate = new Date();
+  targetCalendarDate.setMonth(targetCalendarDate.getMonth() + Math.round(monthsToAdd));
+  
+  // مصفوفة أسماء الأشهر الهجرية الرسمية لمنع ظهورها كأرقام مبهمة ولتلافي توهان العميل
+  const hijriMonthsNames = [
+    "محرّم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة",
+    "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
+  ];
 
-  let remainingPrincipal = principal + totalInterest;
-  const totalRepaymentSum = principal + totalInterest;
-  const annualPayment = annualInstallmentCost * 12;
-  const yearlyInterestComponent = totalInterest / totalYears;
-  let accumulatedPaid = 0;
+  try {
+    // استخدام ميزة التدويل القياسية لاستخراج السنة والشهر الهجري بدقة متناهية
+    const formatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
+      year: 'numeric',
+      month: 'numeric'
+    });
+    
+    const formattedParts = formatter.format(targetCalendarDate); // ينتج شكل مثل "٠٥ /١٤٦٢ هـ" أو "5/1462"
+    const digitParts = formattedParts.replace(/[^0-9]/g, '/').split('/').filter(Boolean);
+    
+    // تحويل الأرقام العربية الشرقية (الهندية) إلى إنجليزية إذا لزم الأمر لضمان استقرار المعالجة المصفوفية
+    const parseArabicDigits = str => str.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+    
+    let hijriMonthIndex = parseInt(parseArabicDigits(digitParts[0])) - 1;
+    let hijriYearValue = parseInt(parseArabicDigits(digitParts[1]));
 
-  for (let year = 1; year <= Math.ceil(totalYears); year++) {
-    const startBalance = remainingPrincipal;
-    accumulatedPaid += annualPayment;
-    remainingPrincipal -= annualPayment;
-
-    if (remainingPrincipal < 0 || year === Math.ceil(totalYears)) {
-      remainingPrincipal = 0;
+    if (isNaN(hijriMonthIndex) || isNaN(hijriYearValue)) {
+       // في حال اختلاف تهيئة المتصفح، يتم استخراج الأرقام من النصوص بشكل مرن
+       const rawCleanStr = formattedParts.replace(/[\u200B-\u200D\uFEFF]/g, '');
+       const cleanNumbersArray = rawCleanStr.match(/\d+/g);
+       if (cleanNumbersArray && cleanNumbersArray.length >= 2) {
+         hijriMonthIndex = parseInt(cleanNumbersArray[0]) - 1;
+         hijriYearValue = parseInt(cleanNumbersArray[1]);
+       } else {
+         return "خلال " + Math.round(monthsToAdd / 12) + " سنة هجرية";
+       }
     }
 
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${year}</td>
-      <td>${numFormat(startBalance)} ريال</td>
-      <td>${numFormat(accumulatedPaid)} ريال</td>
-      <td style="color: var(--accent-rose);">${numFormat(yearlyInterestComponent)} ريال</td>
-      <td style="color: var(--accent-green); font-weight:bold;">${numFormat(remainingPrincipal)} ريال</td>
+    // تأمين النطاق الاندكسي للمصفوفة الشهرية
+    if (hijriMonthIndex < 0) hijriMonthIndex = 0;
+    if (hijriMonthIndex > 11) hijriMonthIndex = 11;
+
+    return `${hijriMonthsNames[hijriMonthIndex]} ${hijriYearValue} هـ`;
+  } catch (e) {
+    return "خطأ في معالجة التقويم الهجري";
+  }
+}
+
+// خوارزمية بناء مصفوفة استهلاك التمويل السنوي
+function buildAmortizationScheduleRows(principal, totalInterest, totalYears, monthlyCost) {
+  const tbody = getBox('amortizationTableContent');
+  tbody.innerHTML = "";
+
+  let totalDebtRemaining = principal + totalInterest;
+  const annualTotalPaidAmount = monthlyCost * 12;
+  const staticYearlyProfitComponent = totalInterest / totalYears;
+  let runningAccumulatedPaid = 0;
+
+  for (let currentYear = 1; currentYear <= Math.ceil(totalYears); currentYear++) {
+    const openingBalanceForYear = totalDebtRemaining;
+    runningAccumulatedPaid += annualTotalPaidAmount;
+    totalDebtRemaining -= annualTotalPaidAmount;
+
+    if (totalDebtRemaining < 0 || currentYear === Math.ceil(totalYears)) {
+      totalDebtRemaining = 0;
+    }
+
+    const tableRowObj = document.createElement('tr');
+    tableRowObj.innerHTML = `
+      <td>${currentYear}</td>
+      <td>${formatMoney(openingBalanceForYear)} ريال</td>
+      <td>${formatMoney(runningAccumulatedPaid)} ريال</td>
+      <td style="color: var(--brand-rose);">${formatMoney(staticYearlyProfitComponent)} ريال</td>
+      <td style="color: var(--brand-green); font-weight:bold;">${formatMoney(totalDebtRemaining)} ريال</td>
     `;
-    tbody.appendChild(row);
+    tbody.appendChild(tableRowObj);
   }
 }
 </script>
