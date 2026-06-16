@@ -1,11 +1,562 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حاسبة التمويل العقاري</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>المستشار المالي الذكي</title>
+
+<style>
+body{
+  background:#020617;
+  margin:0;
+  padding:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+
+#bankApp{
+  max-width:900px;
+  margin:20px auto;
+  padding:15px;
+  direction:rtl;
+  color:#fff;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+.card{
+  background:#0f172a;
+  border:1px solid #1f2937;
+  padding:15px;
+  border-radius:16px;
+  margin-bottom:12px;
+}
+
+input{
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 2px solid #334155;
+  background: #020617;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+/* إطار ذهبي متحرك بسيط عند التركيز */
+input:focus{
+  outline: none;
+  border-color: #ffd700;
+  animation: glowMove 1.5s linear infinite;
+}
+
+/* حركة خفيفة للإطار */
+@keyframes glowMove{
+  0%   { border-color: #ffd700; }
+  50%  { border-color: #d4af37; }
+  100% { border-color: #ffd700; }
+}
+
+input{
+  
+  width:100%;
+  padding:13px;
+  margin-bottom:10px;
+  border-radius:12px;
+  border:1px solid #334155;
+  background:#020617;
+  color:#fff;
+  text-align:center;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* زر التحليل */
+.run{
+  background:#2563eb;
+  color:#fff;
+  transition:.25s;
+}
+
+.run:hover{
+  background:#1d4ed8;
+}
+
+/* زر المشاركة */
+.shareBtn{
+  margin-top:10px;
+  color:#fff;
+  background:linear-gradient(135deg,#0ea5e9,#2563eb);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.25s ease;
+  box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.shareBtn:hover{
+  transform:translateY(-2px);
+}
+
+.shareBtn:active{
+  transform:scale(.98);
+}
+
+.box{
+  display:flex;
+  justify-content:space-between;
+  padding:12px;
+  border-bottom:1px solid #1f2937;
+}
+
+.alert{
+  margin-top:12px;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.good{background:#16a34a;}
+.mid{background:#f59e0b;color:#000;}
+.bad{background:#dc2626;}
+
+.hint{
+  font-size:13px;
+  color:#cbd5e1;
+  margin-top:10px;
+  line-height:1.8;
+}
+
+/* الشريط */
+.meter{
+  width:100%;
+  height:14px;
+  background:#1f2937;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+
+#meterBar{
+  width:0%;
+  height:100%;
+  border-radius:999px;
+  transition:1.5s ease;
+}
+
+/* السعر المناسب */
+.recBox{
+  margin-bottom:12px;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #334155;
+  background:linear-gradient(135deg,#0f172a,#111827);
+  text-align:center;
+}
+
+.recTitle{
+  color:#93c5fd;
+  font-weight:bold;
+}
+
+.recBox b{
+  display:block;
+  margin-top:8px;
+  font-size:22px;
+  color:#22c55e;
+}
+
+.recSub{
+  margin-top:6px;
+  font-size:12px;
+  color:#94a3b8;
+}
+</style>
 </head>
+
 <body>
-<p>تم إنشاء الملف. استخدم النسخة الكاملة التي زودتك بها سابقًا أو اطلب إعادة إنشائها.</p>
+
+<div id="bankApp">
+
+  <!-- الإدخال -->
+  <div class="card">
+
+    <input id="loan" placeholder="مبلغ العقار" />
+    <input id="down" placeholder="الدفعة + الدعم السكني" />
+    <input id="salary" placeholder="الراتب الشهري" />
+    <input id="expenses" placeholder="الالتزامات" />
+    <input id="months" placeholder="مدة التمويل بالأشهر" />
+    <input id="rate" placeholder="نسبة الفائدة (5.5 أو 5,5)" />
+
+    <button class="run" onclick="calc()">
+      تحليل القرض
+    </button>
+
+    <button class="shareBtn" onclick="shareResults()">
+      <span>📤</span>
+      مشاركة النتائج
+    </button>
+
+  </div>
+
+  <!-- النتائج -->
+  <div class="card">
+
+    <div class="meter">
+      <div id="meterBar"></div>
+    </div>
+
+    <div class="box">
+      <span>التمويل</span>
+      <b id="financed">0</b>
+    </div>
+
+    <div class="box">
+      <span>القسط</span>
+      <b id="monthly">0</b>
+    </div>
+
+    <div class="box">
+      <span>الفائدة</span>
+      <b id="interest">0</b>
+    </div>
+
+    <div class="box">
+      <span>الإجمالي</span>
+      <b id="total">0</b>
+    </div>
+
+    <div class="box">
+      <span>المتبقي من الراتب</span>
+      <b id="remaining">0</b>
+    </div>
+
+    <div class="box">
+      <span>نسبة الاستقطاع</span>
+      <b id="percent">0%</b>
+    </div>
+
+    <div class="box">
+      <span>نهاية القسط (هجري)</span>
+      <b id="endDate">--</b>
+    </div>
+
+    <div id="alertBox" class="alert">
+      أدخل البيانات لبدء التحليل
+    </div>
+
+    <div id="hintBox" class="hint"></div>
+
+  </div>
+
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function parseMoney(v){
+  return parseFloat(String(v).replace(/,/g,'')) || 0;
+}
+
+function parseRate(v){
+  return parseFloat(String(v).replace(',', '.')) || 0;
+}
+
+function fmt(v){
+  return Math.round(v).toLocaleString('en-US');
+}
+
+function bindMoney(id){
+  const el=$(id);
+
+  el.addEventListener('input',()=>{
+
+    let v=el.value.replace(/[^0-9]/g,'');
+
+    v=v.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    el.value=v;
+  });
+}
+
+function bindRate(id){
+  const el=$(id);
+
+  el.addEventListener('input',()=>{
+
+    let v=el.value.replace(/[^0-9.,]/g,'');
+
+    v=v.replace(',', '.');
+
+    let p=v.split('.');
+
+    if(p.length>2){
+      v=p[0]+'.'+p.slice(1).join('');
+    }
+
+    el.value=v;
+  });
+}
+
+['loan','down','salary','expenses','months']
+.forEach(bindMoney);
+
+bindRate('rate');
+
+function calc(){
+
+  const L=parseMoney(loan.value);
+  const D=parseMoney(down.value);
+  const S=parseMoney(salary.value);
+  const E=parseMoney(expenses.value);
+  const M=parseMoney(months.value);
+  const R=parseRate(rate.value)/100;
+
+  const financed=L-D;
+  const interest=financed*R*(M/12);
+  const total=financed+interest;
+  const monthly=total/M;
+  const totalDebt=monthly+E;
+  const percent=(totalDebt/S)*100;
+  const remaining=S-totalDebt;
+
+  financedEl.textContent=fmt(financed);
+  monthlyEl.textContent=fmt(monthly);
+  interestEl.textContent=fmt(interest);
+  totalEl.textContent=fmt(total);
+  remainingEl.textContent=fmt(remaining);
+  percentEl.textContent=fmt(percent)+'%';
+
+  if(M>0){
+
+    const end=new Date();
+
+    end.setMonth(end.getMonth()+M);
+
+    const formatter=
+    new Intl.DateTimeFormat(
+      'en-u-ca-islamic',
+      {
+        year:'numeric',
+        month:'2-digit',
+        day:'2-digit'
+      }
+    );
+
+    endDate.textContent=
+    formatter.format(end);
+  }
+
+  let score=100-percent;
+
+  if(remaining<0) score-=30;
+  if(percent>50) score-=30;
+  if(percent>70) score-=40;
+
+  score=Math.max(0,Math.min(score,100));
+
+  meterBar.style.width=score+'%';
+
+  let warnings="";
+  let alerts="";
+  let guide="";
+  let recommendedPrice="";
+
+  if(score>=70){
+
+    meterBar.style.background='#16a34a';
+
+    alertBox.className='alert good';
+    alertBox.textContent='🟢 مناسب';
+
+    warnings='✔ الالتزامات ضمن الحد الآمن';
+    alerts='⚠ تغير الفائدة قد يؤثر';
+    guide='✔ يمكنك الموافقة بأمان';
+
+  } else if(score>=40){
+
+    meterBar.style.background='#f59e0b';
+
+    alertBox.className='alert mid';
+    alertBox.textContent='🟡 يحتاج حذر';
+
+    warnings='⚠ ضغط متوسط';
+    alerts='⚠ أي زيادة قد تسبب ضغط';
+    guide='🟡 يفضل تقليل القسط';
+
+  } else {
+
+    meterBar.style.background='#dc2626';
+
+    alertBox.className='alert bad';
+    alertBox.textContent='🔴 خطر مالي';
+
+    warnings='🚨 ضغط عالي جداً';
+    alerts='⚠ خطر تعثر مالي';
+    guide='🔴 غير مناسب حالياً';
+  }
+
+  if(score<70 && S>0){
+
+    const targetPercent=30;
+    const maxDebt=(S*targetPercent)/100;
+    const allowedMonthly=maxDebt-E;
+
+    if(allowedMonthly>0){
+
+      const allowedTotal=
+      allowedMonthly*M;
+
+      const factor=
+      1+(R*(M/12));
+
+      const price=
+      (allowedTotal/factor)+D;
+
+      recommendedPrice=`
+      <div class="recBox">
+        <div class="recTitle">
+          🏡 سعر عقار مناسب لك
+        </div>
+        <b>${fmt(price)}</b>
+        <div class="recSub">
+          يصبح التقييم أخضر
+        </div>
+      </div>`;
+    }
+  }
+
+  hintBox.innerHTML=`
+    ${recommendedPrice}
+    📌 التحذيرات: ${warnings}<br>
+    ⚠ التنبيهات: ${alerts}<br>
+    🧠 الإرشاد: ${guide}
+  `;
+}
+
+/* مشاركة النتائج */
+async function shareResults(){
+
+  if(financedEl.textContent==='0'){
+    alert('قم بتحليل القرض أولاً');
+    return;
+  }
+
+  const report=`
+🏡 تقرير التمويل العقاري
+🏠 قيمة العقار:
+${loan.value} ريال
+💵 الدفعة + الدعم:
+${down.value} ريال
+💰 مبلغ التمويل:
+${financedEl.textContent} ريال
+📆 القسط الشهري:
+${monthlyEl.textContent} ريال
+📈 الفائدة:
+${interestEl.textContent} ريال
+💵 إجمالي السداد:
+${totalEl.textContent} ريال
+💳 المتبقي من الراتب:
+${remainingEl.textContent} ريال
+📊 نسبة الاستقطاع:
+${percentEl.textContent}
+🗓 نهاية القسط:
+${endDate.textContent}
+📌 التقييم:
+${alertBox.textContent}
+━━━
+المستشار المالي الذكي
+`.trim();
+
+  const btn=
+  document.querySelector('.shareBtn');
+
+  const oldHTML=
+  btn.innerHTML;
+
+  try{
+
+    if(navigator.share){
+
+      await navigator.share({
+        title:'تقرير التمويل العقاري',
+        text:report
+      });
+
+      return;
+    }
+
+  }catch(err){
+    console.log(err);
+  }
+
+  try{
+
+    await navigator.clipboard
+    .writeText(report);
+
+    btn.innerHTML=
+    '✅ تم نسخ التقرير';
+
+    setTimeout(()=>{
+      btn.innerHTML=
+      oldHTML;
+    },2000);
+
+  }catch(e){
+
+    const textarea=
+    document.createElement('textarea');
+
+    textarea.value=report;
+
+    document.body
+    .appendChild(textarea);
+
+    textarea.select();
+
+    document.execCommand('copy');
+
+    document.body
+    .removeChild(textarea);
+
+    btn.innerHTML=
+    '✅ تم نسخ التقرير';
+
+    setTimeout(()=>{
+      btn.innerHTML=
+      oldHTML;
+    },2000);
+  }
+}
+
+/* العناصر */
+const financedEl=$('financed');
+const monthlyEl=$('monthly');
+const interestEl=$('interest');
+const totalEl=$('total');
+const remainingEl=$('remaining');
+const percentEl=$('percent');
+const endDate=$('endDate');
+const alertBox=$('alertBox');
+const hintBox=$('hintBox');
+const meterBar=$('meterBar');
+</script>
+
 </body>
 </html>
