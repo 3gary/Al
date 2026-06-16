@@ -18,6 +18,11 @@
   --text-sky: #3b82f6;
 }
 
+/* ضبط حساب الأبعاد لجميع العناصر لمنع تداخل المربعات */
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--bg-slate-950);
   color: #f8fafc;
@@ -33,13 +38,21 @@ body {
   padding: 0 20px;
 }
 
+/* تحسين استجابة الحاوية على الهواتف منعاً لضيق المساحة */
+@media (max-width: 480px) {
+  #appContainer {
+    margin: 15px auto;
+    padding: 0 10px;
+  }
+}
+
 .header-brand {
   text-align: center;
   margin-bottom: 35px;
 }
 
 .header-brand h1 {
-  font-size: 28px;
+  font-size: 25px;
   color: #f1f5f9;
   margin-bottom: 8px;
   font-weight: 800;
@@ -48,7 +61,7 @@ body {
 .header-brand p {
   color: #94a3b8;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .dashboard-grid {
@@ -67,8 +80,15 @@ body {
   background: var(--bg-slate-900);
   border: 1px solid var(--border-slate-800);
   border-radius: 24px;
-  padding: 28px;
+  padding: 24px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 480px) {
+  .panel-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
 }
 
 .panel-title {
@@ -86,20 +106,25 @@ body {
 }
 
 .input-field-wrapper {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   text-align: center;
+  width: 100%;
 }
 
 .input-field-wrapper label {
   display: block;
-  font-size: 13px;
+  font-size: 13.5px;
   color: #94a3b8;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 500;
+  padding: 0 5px;
+  line-height: 1.4;
 }
 
+/* تعديل هيكلي شامل للمربعات لمنع خروجها عن الإطار وتوسيطها بشكل حقيقي */
 input, select {
   width: 100%;
+  max-width: 100%;
   padding: 14px 16px;
   background: var(--bg-slate-950);
   border: 2px solid var(--border-slate-700);
@@ -109,6 +134,7 @@ input, select {
   font-weight: 600;
   text-align: center;
   transition: all 0.25s ease;
+  display: block;
 }
 
 input:focus, select:focus {
@@ -117,9 +143,12 @@ input:focus, select:focus {
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
+/* تحسين مظهر النص المؤقت وجعله خفيفاً لمنع الخلط */
 input::placeholder {
   color: #475569;
   text-align: center;
+  opacity: 0.8;
+  font-weight: 500;
 }
 
 select option {
@@ -127,7 +156,7 @@ select option {
   color: #fff;
 }
 
-/* زر التفعيل الرئيسي */
+/* أزرار التحكم */
 .btn-action-primary {
   width: 100%;
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -140,15 +169,12 @@ select option {
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+  margin-top: 10px;
 }
 
 .btn-action-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
-}
-
-.btn-action-primary:active {
-  transform: translateY(0);
 }
 
 .btn-action-secondary {
@@ -169,21 +195,16 @@ select option {
   transition: background 0.2s;
 }
 
-.btn-action-secondary:hover {
-  background: var(--border-slate-700);
-  color: #fff;
-}
-
 /* لوحة إصدار القرار الاستراتيجي */
 .decision-matrix-shield {
   padding: 20px;
   border-radius: 16px;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   margin-bottom: 25px;
   transition: all 0.3s ease;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .shield-default { background: #1e293b; color: #64748b; border: 1px dashed #475569; }
@@ -248,21 +269,11 @@ select option {
   border-bottom: 1px solid var(--border-slate-800);
 }
 
-.data-row:last-of-type {
-  border-bottom: none;
-}
+.data-row:last-of-type { border-bottom: none; }
+.data-row span { font-size: 14px; color: #94a3b8; text-align: right; margin-left: 10px;}
+.data-row strong { font-size: 16px; color: #f1f5f9; text-align: left; white-space: nowrap; }
 
-.data-row span {
-  font-size: 14px;
-  color: #94a3b8;
-}
-
-.data-row strong {
-  font-size: 16px;
-  color: #f1f5f9;
-}
-
-/* الحاوية الهندسية العكسية - سيناريوهات التخفيف */
+/* الحاوية الهندسية العكسية */
 .re-engineering-box {
   margin-top: 25px;
   background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.8) 100%);
@@ -312,7 +323,7 @@ select option {
 
   <div class="dashboard-grid">
     
-    <!-- لوحة المدخلات البارامترية الموحدة والتوسيط الكامل -->
+    <!-- لوحة المدخلات المحسنة بالكامل بالتوسيط ومقاومة التداخل الائتماني -->
     <div class="panel-card">
       <div class="panel-title">📊 بارامترات التمويل والأصول</div>
       
@@ -320,43 +331,43 @@ select option {
         <label>هل العقار الحالي يمثل مسكنك الأول؟ (للإعفاء من الضريبة)</label>
         <select id="inIsFirstHome">
           <option value="yes">نعم - مشمول بالإعفاء الضريبي للمسكن الأول</option>
-          <option value="no">لا - غير مشمول (تطبيق ضريبة التصرفات العقارية 5%)</option>
+          <option value="no">لا - غير مشمول (تطبيق ضريبة التصافات 5%)</option>
         </select>
       </div>
 
       <div class="input-field-wrapper">
         <label>القيمة السوقية الإجمالية للعقار (ريال)</label>
-        <input id="inPropertyAssetPrice" placeholder="مثال: 1,500,000" />
+        <input id="inPropertyAssetPrice" placeholder="1,500,000" />
       </div>
 
       <div class="input-field-wrapper">
         <label>الدفعة النقدية الأولى + الدعم السكني المعجل (ريال)</label>
-        <input id="inDownPaymentCash" placeholder="مثال: 300,000" />
+        <input id="inDownPaymentCash" placeholder="300,000" />
       </div>
 
       <div class="input-field-wrapper">
         <label>المرتب الشهري الصافي المودع بالبنك حالياً (ريال)</label>
-        <input id="inNetMonthlySalary" placeholder="مثال: 18,500" />
+        <input id="inNetMonthlySalary" placeholder="18,500" />
       </div>
 
       <div class="input-field-wrapper">
         <label>إجمالي الالتزامات الشهرية الحالية (شخصي / مركبة / فيزا)</label>
-        <input id="inActiveCurrentDebts" placeholder="أدخل 0 إذا لم توجد التزامات" />
+        <input id="inActiveCurrentDebts" placeholder="0" />
       </div>
 
       <div class="input-field-wrapper">
         <label>أجل التمويل المقترح بالأشهر (مدة العقد)</label>
-        <input id="inFinancingMonthsDuration" placeholder="مثال: 240 شهر (20 سنة)" />
+        <input id="inFinancingMonthsDuration" placeholder="240" />
       </div>
 
       <div class="input-field-wrapper">
         <label>عدد السنوات المتبقية لك في الخدمة حتى التقاعد (سنة)</label>
-        <input id="inYearsUntilRetirement" placeholder="مثال: 15" />
+        <input id="inYearsUntilRetirement" placeholder="15" />
       </div>
 
       <div class="input-field-wrapper">
         <label>معدل النسبة السنوية للمرابحة APR (%)</label>
-        <input id="inAnnualPercentageRate" placeholder="مثال: 4.25" />
+        <input id="inAnnualPercentageRate" placeholder="4.25" />
       </div>
 
       <button class="btn-action-primary" onclick="executeComprehensiveFinancialAnalysis()">
@@ -368,16 +379,14 @@ select option {
       </button>
     </div>
 
-    <!-- لوحة النتائج العميقة والسيناريوهات التفاعلية -->
+    <!-- لوحة مخرجات النظم والنتائج الحسابية -->
     <div class="panel-card">
       <div class="panel-title">⚖️ وثيقة الأهلية والهندسة الموازية</div>
 
-      <!-- درع إصدار القرار الاستراتيجي الحاسم -->
       <div id="decisionShieldDisplay" class="decision-matrix-shield shield-default">
         الرجاء تعبئة البيانات بالكامل لبدء التحليل الهيكلي
       </div>
 
-      <!-- نظام المحاكاة المرئية لهيكل الميزانية القادم -->
       <div class="budget-visualizer">
         <div class="visualizer-lbl">📊 توزيع الدخل الشهري المتوقع بعد توقيع العقد (قبل التقاعد):</div>
         <div class="bar-wrapper">
@@ -392,7 +401,6 @@ select option {
         </div>
       </div>
 
-      <!-- مخرجات الحسابات الدقيقة للكتلة النقدية -->
       <div class="data-row"><span>صافي مبلغ التمويل المطلوب (أصل القرض):</span><strong id="outFinancedPrincipal">0 ريال</strong></div>
       <div class="data-row"><span>القسط الشهري المترتب على العقار الجديد:</span><strong id="outMonthlyHousingInstallment">0 ريال</strong></div>
       <div class="data-row"><span>إجمالي أرباح وفوائد جهة التمويل:</span><strong id="outCumulativeTotalInterest">0 ريال</strong></div>
@@ -400,21 +408,18 @@ select option {
       <div class="data-row"><span>نسبة الاستقطاع الإجمالية من الدخل الحالي:</span><strong id="outTotalDSRPercentage" style="color: #60a5fa;">0%</strong></div>
       <div class="data-row"><span>الفائض المعيشي المتبقي قبل التقاعد:</span><strong id="outNetLiquidityRemaining">0 ريال</strong></div>
       
-      <!-- تحليل امتداد الدين لزمن التقاعد -->
       <div class="data-row" id="retirementOverlapRow" style="display:none; background: rgba(245, 158, 11, 0.04); padding: 10px; border-radius: 8px;">
         <span>⚠️ امتداد خطر الدين لزمن التقاعد:</span>
         <strong id="outRetirementOverlapYears" style="color: var(--text-amber);">0 سنوات</strong>
       </div>
 
-      <!-- كاش النفقات الأولية الرأسمالية الخفية -->
       <div class="data-row" style="background: rgba(239, 68, 68, 0.04); padding: 14px 8px; border-radius: 8px;">
-        <span>⚠️ كاش أولي مطلوب فوراً (سعي مكتب + رسوم إدارية + ضريبة إن وجدت):</span>
+        <span>⚠️ كاش أولي مطلوب فوراً (سعي + رسوم إدارية + ضريبة إن وجدت):</span>
         <strong id="outHiddenCapitalFees" style="color: #fca5a5;">0 ريال</strong>
       </div>
       
       <div class="data-row"><span>التاريخ التقريبي المقدر لإنهاء الالتزام العقاري:</span><strong id="outHijriTargetDate">--</strong></div>
 
-      <!-- المحاكي العكسي الذكي لحلول الأزمات ورسم المستقبل -->
       <div id="reEngineeringSection" class="re-engineering-box" style="display: none;">
         <div class="re-engineering-title">💡 سيناريوهات الهندسة العكسية لضمان سلامتك عند التقاعد:</div>
         <div id="reEngineeringContent"></div>
@@ -470,7 +475,6 @@ function executeComprehensiveFinancialAnalysis() {
     return;
   }
 
-  // حسابات القرض والمدد الزمنية
   const financedPrincipal = assetPrice - downPayment;
   const cumulativeInterest = financedPrincipal * aprRate * (totalMonths / 12);
   const grandTotalRepayments = financedPrincipal + cumulativeInterest;
@@ -483,13 +487,11 @@ function executeComprehensiveFinancialAnalysis() {
   const loanYearsDuration = totalMonths / 12;
   const retirementOverlapYears = Math.max(0, loanYearsDuration - yearsUntilRetirement);
 
-  // حساب كاش النفقات الخفية بناءً على المسكن الأول
   let realEstateTaxCost = (isFirstHome === 'no') ? assetPrice * 0.05 : 0;
   const brokerageCommissionCost = assetPrice * 0.025; 
   const adminAndEvaluationFees = 5000; 
   const aggregateHiddenCapitalCash = realEstateTaxCost + brokerageCommissionCost + adminAndEvaluationFees;
 
-  // حقن البيانات المالية الأساسية في الواجهة
   getEl('outFinancedPrincipal').textContent = formatNumberToCurrency(financedPrincipal) + " ريال";
   getEl('outMonthlyHousingInstallment').textContent = formatNumberToCurrency(monthlyHousingInstallment) + " ريال";
   getEl('outCumulativeTotalInterest').textContent = formatNumberToCurrency(cumulativeInterest) + " ريال";
@@ -498,7 +500,6 @@ function executeComprehensiveFinancialAnalysis() {
   getEl('outNetLiquidityRemaining').textContent = formatNumberToCurrency(netLiquidityRemaining) + " ريال";
   getEl('outHiddenCapitalFees').textContent = formatNumberToCurrency(aggregateHiddenCapitalCash) + " ريال";
 
-  // تفعيل وإظهار فجوة التقاعد إن وجدت
   if (retirementOverlapYears > 0) {
     getEl('retirementOverlapRow').style.display = 'flex';
     getEl('outRetirementOverlapYears').textContent = retirementOverlapYears.toFixed(1) + " سنة سداد بعد التقاعد";
@@ -506,7 +507,6 @@ function executeComprehensiveFinancialAnalysis() {
     getEl('retirementOverlapRow').style.display = 'none';
   }
 
-  // التواريخ الهجرية
   if (totalMonths > 0) {
     const calendarTarget = new Date();
     calendarTarget.setMonth(calendarTarget.getMonth() + totalMonths);
@@ -514,7 +514,6 @@ function executeComprehensiveFinancialAnalysis() {
     getEl('outHijriTargetDate').textContent = hijriFormatter.format(calendarTarget) + " هـ";
   }
 
-  // شريط المحاكاة البصري
   const segmentDebtsWeight = Math.min((currentDebts / monthlySalary) * 100, 100);
   const segmentHousingWeight = Math.min((monthlyHousingInstallment / monthlySalary) * 100, 100 - segmentDebtsWeight);
   const segmentSavingsWeight = Math.max(0, 100 - (segmentDebtsWeight + segmentHousingWeight));
@@ -526,12 +525,10 @@ function executeComprehensiveFinancialAnalysis() {
   getEl('segmentSavings').style.width = segmentSavingsWeight + "%";
   getEl('segmentSavings').textContent = segmentSavingsWeight > 8 ? Math.round(segmentSavingsWeight) + "%" : "";
 
-  // مصفوفة اتخاذ القرار الذكي الحاسم وربطه بالتقاعد
   let shieldClass = 'shield-default';
   let shieldText = '';
   let scenariosHTML = '';
 
-  // التنبؤ بانخفاض الراتب التقاعدي تقريبياً لـ 70% للوقوف على الخطر المعيشي القادم
   const estimatedRetirementSalary = monthlySalary * 0.70;
   const estimatedRetirementDSR = ((monthlyHousingInstallment + currentDebts) / estimatedRetirementSalary) * 100;
 
@@ -543,19 +540,17 @@ function executeComprehensiveFinancialAnalysis() {
     getEl('reEngineeringSection').style.display = 'none';
   } 
   else if (retirementOverlapYears > 0 || (totalDSRPercentage > 40 && totalDSRPercentage <= 60)) {
-    // إذا امتد القرض لبعد التقاعد، ينزل التقييم فوراً إلى منطقة الحذر أو الخطر
     if (retirementOverlapYears > 0 && estimatedRetirementDSR > 65) {
       shieldClass = 'shield-critical';
-      shieldText = `❌ خطر مالي حرج: القرض الحالي يمتد لـ ${retirementOverlapYears.toFixed(1)} سنة بعد تقاعدك، وسوف يلتهم حوالي ${estimatedRetirementDSR.toFixed(0)}% من معاشك التقاعدي المتقلص!`;
+      shieldText = `❌ خطر مالي حرج: القرض العقاري الحالي يمتد لـ ${retirementOverlapYears.toFixed(1)} سنة بعد تقاعدك، وسيلتهم حوالي ${estimatedRetirementDSR.toFixed(0)}% من معاشك التقاعدي بعد انخفاضه!`;
     } else {
       shieldClass = 'shield-warning';
-      shieldText = `⚠️ قرار مشروط بالحذر: ميزانيتك مضغوطة حالياً، أو أن جزءاً خفيفاً من دينك متداخل مع سنوات تقاعدك الأولى.`;
+      shieldText = `⚠️ قرار مشروط بالحذر: ميزانيتك الحالية مضغوطة، أو أن جزءاً من تيار الدين يتداخل مع سنوات تقاعدك الأولى.`;
     }
     
     getEl('decisionShieldDisplay').className = `decision-matrix-shield ${shieldClass}`;
     getEl('decisionShieldDisplay').textContent = shieldText;
 
-    // سيناريو الهندسة العكسية 1: تقليص المدة لتتطابق مع سنة التقاعد بالمليم
     const retirementSafeMonths = yearsUntilRetirement * 12;
     const retirementInterestFactor = 1 + (aprRate * (retirementSafeMonths / 12));
     const engineeredRetirementMonthlyInstallment = (financedPrincipal * retirementInterestFactor) / retirementSafeMonths;
@@ -564,18 +559,17 @@ function executeComprehensiveFinancialAnalysis() {
     if (retirementOverlapYears > 0) {
       scenariosHTML += `
         <div class="scenario-card">
-          👴 <b>مأزق الصدمة التقاعدية:</b> عند التقاعد ينخفض دخلك نظامياً، وبقاء القسط كما هو سيسبب لك أزمة عائلية حادة. يتوجب عليك حماية مستقبلك الآن لكي لا تندم لاحقاً.
+          👴 <b>تنبؤ الصدمة التقاعدية:</b> انخفاض الراتب التقاعدي مع ثبات قسط التمويل العقاري يهدد جودة معيشتك مستقبلاً، ويتوجب التحوط لإنهاء الدين مبكراً.
         </div>
       `;
 
       if (engineeredRetirementDSR <= 60) {
         scenariosHTML += `
           <div class="scenario-card">
-            ⏰ <b>سيناريو تقصير مدة القرض (الحل الأذكى):</b> نوصي بتعديل العقد لتصبح مدته <span class="text-highlight-blue">${retirementSafeMonths} شهراً (${yearsUntilRetirement} سنة)</span> فقط لتنتهي من ديونك تماماً يوم تقاعدك. هذا سيرفع قسطك الحالي إلى <span class="text-highlight-amber">${formatNumberToCurrency(engineeredRetirementMonthlyInstallment)} ريال</span>، وهي تقع في نطاق قدرتك المالية الحالية.
+            ⏰ <b>سيناريو تقصير مدة العقد (حماية تقاعدية):</b> نوصي بطلب تقليص المدة لتصبح <span class="text-highlight-blue">${retirementSafeMonths} شهراً (${yearsUntilRetirement} سنة)</span> فقط لتنتهي الالتزامات مع الخدمة. سيرفع هذا قسطك الحالي إلى <span class="text-highlight-amber">${formatNumberToCurrency(engineeredRetirementMonthlyInstallment)} ريال</span>، وهي تقع ضمن الملاءة المتاحة حالياً.
           </div>
         `;
       } else {
-        // إذا كان تقصير المدة سيرفع القسط فوق طاقة راتبه الحالي، نقترح خفض ميزانية البيت أو ضخ كاش عالي
         const maxAllowedMonthlyForRetirementTime = (monthlySalary * 0.45) - currentDebts;
         const maxFinancedForRetirementTime = (maxAllowedMonthlyForRetirementTime * retirementSafeMonths) / (1 + (aprRate * (yearsUntilRetirement)));
         const neededExtraDownpaymentForRetirement = financedPrincipal - maxFinancedForRetirementTime;
@@ -583,22 +577,21 @@ function executeComprehensiveFinancialAnalysis() {
 
         scenariosHTML += `
           <div class="scenario-card">
-            💰 <b>سيناريو ضخ كاش إنقاذي للتقاعد آمن:</b> إذا كنت مصراً على هذا العقار وتريد إنهاءه قبل التقاعد، يجب عليك زيادة كاش الدفعة الأولى بمقدار <span class="text-highlight-blue">${formatNumberToCurrency(neededExtraDownpaymentForRetirement)} ريال</span> لكي تتقلص المدة والقسط معاً إلى الحدود الآمنة.
+            💰 <b>سيناريو ضخ دفعة نقدية إضافية:</b> لتقصير أمد القرض دون سحق راتبك الحالي، ينصح بزيادة كاش الدفعة الأولى بمقدار <span class="text-highlight-blue">${formatNumberToCurrency(neededExtraDownpaymentForRetirement)} ريال</span> لخفض التمويل الأساسي.
           </div>
           <div class="scenario-card">
-            🏡 <b>سيناريو الميزانية العقارية البديلة:</b> الحل المالي الأكثر سلامة لك هو غض النظر عن هذا العقار، والبحث عن عقار بديل لا يتجاوز سعره الإجمالي <span class="text-highlight-green">${formatNumberToCurrency(totalSafeAssetPriceForRetirement)} ريال</span>، لكي يتوافق القسط تماماً مع تاريخ تقاعدك دون إرهاق ميزانيتك الحالية.
+            🏡 <b>سيناريو تعديل نطاق الميزانية المستهدفة:</b> الخيار المالي الأسلم لسن التقاعد هو الانتقال لعقار بديل بقيمة لا تتخطى <span class="text-highlight-green">${formatNumberToCurrency(totalSafeAssetPriceForRetirement)} ريال</span>، ليصبح التمويل متوافقاً تماماً مع موعد التقاعد الآمن.
           </div>
         `;
       }
     } else {
-      // إذا كان القسط لا يتداخل مع التقاعد ولكنه مرتفع حالياً فقط
       const optimalSafeHousingInstallment = (monthlySalary * 0.35) - currentDebts;
       const engineeredSafeFinanced = (optimalSafeHousingInstallment > 0) ? (optimalSafeHousingInstallment * totalMonths) / (1 + (aprRate * (totalMonths / 12))) : 0;
       const engineeredAssetTargetPrice = engineeredSafeFinanced + downPayment;
 
       scenariosHTML += `
         <div class="scenario-card">
-          📍 <b>سيناريو تعديل نطاق الأصول:</b> ديونك لا تتقاطع مع التقاعد ولكن قسطك مرتفع مقارنة براتبك الحالي. نوصي بالبحث عن عقار بديل لا تتجاوز قيمته الإجمالية <span class="text-highlight-green">${formatNumberToCurrency(engineeredAssetTargetPrice)} ريال</span> للعيش بأمان مالي مطلق.
+          📍 <b>سيناريو تعديل نطاق الأصول:</b> ديونك آمنة تقاعدياً لكنها مرهقة حالياً. نوصي بالاستثمار في عقار بديل بقيمة لا تتجاوز <span class="text-highlight-green">${formatNumberToCurrency(engineeredAssetTargetPrice)} ريال</span> للمحافظة على فائض معيشي متزن.
         </div>
       `;
     }
@@ -645,9 +638,9 @@ async function exportExecutiveDecisionReport() {
 
   try {
     await navigator.clipboard.writeText(institutionalReport);
-    alert('✅ تم نسخ وثيقة التقرير الاستراتيجي الشامل شاملةً تحليل صدمة التقاعد! يمكنك لصقها وطباعتها الآن.');
+    alert('✅ تم نسخ وثيقة التقرير الاستراتيجي بنجاح!');
   } catch (error) {
-    alert('حدث خطأ أثناء محاولة النسخ التلقائي، يرجى تصوير الشاشة لحفظ تقرير القرار المالي.');
+    alert('حدث خطأ أثناء محاولة النسخ التلقائي.');
   }
 }
 </script>
