@@ -3,22 +3,35 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>      </title>
+<title>المنصة الموحدة لهندسة القرار الائتماني والاستشراف التقاعدي</title>
 
 <style>
 :root {
-  --bg-deep: #070a13;
-  --bg-panel: #111827;
-  --bg-box: #1f2937;
-  --border-glow: #374151;
-  
-  --brand-blue: #38bdf8;
-  --brand-green: #10b981;
-  --brand-amber: #f59e0b;
-  --brand-rose: #ef4444;
-  
+  --bg-deep: #0b0f19;
+  --bg-panel: #131c2e;
+  --bg-box: #1e293b;
+  --border-glow: #334155;
   --text-pure: #ffffff;
-  --text-muted: #9ca3af;
+  --text-muted: #94a3b8;
+  --brand-blue: #38bdf8;
+  --brand-green: #34d399;
+  --brand-amber: #fbbf24;
+  --brand-rose: #f87171;
+  --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+.light-theme {
+  --bg-deep: #f1f5f9;
+  --bg-panel: #ffffff;
+  --bg-box: #f8fafc;
+  --border-glow: #cbd5e1;
+  --text-pure: #0f172a;
+  --text-muted: #64748b;
+  --brand-blue: #0284c7;
+  --brand-green: #16a34a;
+  --brand-amber: #d97706;
+  --brand-rose: #dc2626;
+  --card-shadow: 0 15px 30px -10px rgba(15, 23, 42, 0.08);
 }
 
 * {
@@ -26,178 +39,243 @@
   margin: 0;
   padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 body {
   background-color: var(--bg-deep);
   color: var(--text-pure);
-  padding: 40px 20px;
+  padding: 30px 20px;
   line-height: 1.6;
 }
 
-@media (max-width: 480px) {
-  body { padding: 15px 10px; }
-}
-
 .platform-container {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
+/* الهيدر الاحترافي الفخم */
 .platform-header {
+  position: relative;
   text-align: center;
   margin-bottom: 35px;
-  background: linear-gradient(180deg, #111827 0%, rgba(17,24,39,0.7) 100%);
-  padding: 25px;
-  border-radius: 20px;
+  background: var(--bg-panel);
+  padding: 30px;
+  border-radius: 24px;
   border: 1px solid var(--border-glow);
+  box-shadow: var(--card-shadow);
 }
 .platform-header h1 {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--brand-blue);
   margin-bottom: 8px;
+  letter-spacing: -0.5px;
 }
 .platform-header p {
-  font-size: 14px;
+  font-size: 14.5px;
   color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
+/* زر تبديل الوضع المظلم والمضيء */
+.theme-toggle-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: var(--bg-box);
+  border: 1px solid var(--border-glow);
+  color: var(--text-pure);
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.theme-toggle-btn:hover {
+  background: var(--border-glow);
+}
+
+/* توزيع شبكة العمل */
 .architecture-grid {
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: 1fr 1.35fr;
   gap: 30px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .architecture-grid { grid-template-columns: 1fr; }
 }
 
 .workspace-card {
   background-color: var(--bg-panel);
   border: 1px solid var(--border-glow);
-  border-radius: 24px;
-  padding: 30px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-
-@media (max-width: 480px) {
-  .workspace-card { padding: 16px; border-radius: 16px; }
+  border-radius: 28px;
+  padding: 35px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
 }
 
 .section-main-title {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 700;
   margin-bottom: 25px;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   border-bottom: 2px solid var(--border-glow);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: var(--text-pure);
+}
+
+/* تصميم المدخلات والمحاذاة */
+.inputs-sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 550px) {
+  .inputs-sub-grid { grid-template-columns: 1fr; }
 }
 
 .input-block {
-  margin-bottom: 20px;
-  width: 100%;
+  margin-bottom: 18px;
 }
+.input-block.full-width {
+  grid-column: span 2;
+}
+@media (max-width: 550px) {
+  .input-block.full-width { grid-column: span 1; }
+}
+
 .input-block label {
   display: block;
-  font-size: 13.5px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 8px;
-  font-weight: 500;
+  font-weight: 600;
 }
 input, select {
   width: 100%;
-  padding: 15px 18px;
-  background-color: var(--bg-deep);
+  padding: 14px 16px;
+  background-color: var(--bg-box);
   border: 2px solid var(--border-glow);
-  border-radius: 12px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 14px;
+  color: var(--text-pure);
+  font-size: 15.5px;
+  font-weight: 700;
   text-align: center;
-  transition: all 0.2s ease;
+  outline: none;
 }
 input:focus, select:focus {
-  outline: none;
   border-color: var(--brand-blue);
   box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
 }
-input::placeholder {
-  color: #4b5563;
-  opacity: 0.9;
-}
 
+/* أزرار العمليات */
 .action-btn-trigger {
   width: 100%;
   background: linear-gradient(135deg, #0284c7, #0369a1);
   color: #fff;
   border: none;
-  padding: 16px;
+  padding: 18px;
   font-size: 16px;
   font-weight: 700;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
   margin-top: 10px;
 }
 .action-btn-trigger:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(2, 132, 199, 0.4);
+  box-shadow: 0 6px 22px rgba(2, 132, 199, 0.5);
 }
 
 .btn-share {
   width: 100%;
-  background: linear-gradient(135deg, #4b5563, #374151);
-  color: #fff;
+  background: var(--bg-box);
+  color: var(--text-pure);
   border: 1px solid var(--border-glow);
   padding: 14px;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
   margin-top: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 .btn-share:hover {
-  background: linear-gradient(135deg, #6b7280, #4b5563);
+  background: var(--border-glow);
 }
 
+/* بنر القرار والحكم النهائي */
 .verdict-banner {
-  padding: 24px;
-  border-radius: 16px;
+  padding: 22px;
+  border-radius: 18px;
   text-align: center;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 16.5px;
+  font-weight: 700;
   margin-bottom: 25px;
   border: 1px solid transparent;
   line-height: 1.6;
 }
-.verdict-initial { background: #1f2937; color: var(--text-muted); border-color: var(--border-glow); }
-.verdict-safe { background: rgba(16, 185, 129, 0.15); color: var(--brand-green); border-color: rgba(16, 185, 129, 0.4); }
-.verdict-caution { background: rgba(245, 158, 11, 0.15); color: var(--brand-amber); border-color: rgba(245, 158, 11, 0.4); }
-.verdict-critical { background: rgba(239, 44, 44, 0.15); color: var(--brand-rose); border-color: rgba(239, 44, 44, 0.4); }
+.verdict-initial { background: var(--bg-box); color: var(--text-muted); border-color: var(--border-glow); }
+.verdict-safe { background: rgba(52, 211, 153, 0.12); color: var(--brand-green); border-color: rgba(52, 211, 153, 0.3); }
+.verdict-caution { background: rgba(251, 191, 36, 0.12); color: var(--brand-amber); border-color: rgba(251, 191, 36, 0.3); }
+.verdict-critical { background: rgba(248, 113, 113, 0.12); color: var(--brand-rose); border-color: rgba(248, 113, 113, 0.3); }
 
+/* العداد المرئي لنسبة عبء الدين DSR Gauge */
+.dsr-gauge-container {
+  background: var(--bg-box);
+  border: 1px solid var(--border-glow);
+  border-radius: 16px;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+}
+.dsr-gauge-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.dsr-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: var(--border-glow);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.dsr-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--brand-blue);
+  border-radius: 99px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
+}
+
+/* مكعبات العرض الثلاثية */
 .pillar-cube-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-bottom: 25px;
 }
-@media (max-width: 640px) {
+@media (max-width: 600px) {
   .pillar-cube-grid { grid-template-columns: 1fr; }
 }
 .cube-item {
-  background: var(--bg-deep);
+  background: var(--bg-box);
   border: 1px solid var(--border-glow);
-  padding: 18px 12px;
-  border-radius: 14px;
+  padding: 20px 14px;
+  border-radius: 16px;
   text-align: center;
 }
-.cube-item p { margin-bottom: 6px; font-size: 12.5px; color: var(--text-muted); font-weight: 500; }
-.cube-item h3 { font-size: 17px; color: #fff; font-weight: 700; }
+.cube-item p { margin-bottom: 6px; font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.cube-item h3 { font-size: 18px; color: var(--text-pure); font-weight: 800; }
 
+/* جدول المؤشرات المالية المتقدم */
 .matrix-summary-table {
   width: 100%;
   border-collapse: collapse;
@@ -205,14 +283,15 @@ input::placeholder {
 }
 .matrix-summary-table tr { border-bottom: 1px solid var(--border-glow); }
 .matrix-summary-table tr:last-child { border-bottom: none; }
-.matrix-summary-table td { padding: 14px 10px; font-size: 14px; }
-.matrix-summary-table td.val { text-align: left; font-weight: 700; color: #fff; }
-.matrix-summary-table td.lbl { color: var(--text-muted); }
+.matrix-summary-table td { padding: 14px 12px; font-size: 14px; }
+.matrix-summary-table td.val { text-align: left; font-weight: 700; color: var(--text-pure); }
+.matrix-summary-table td.lbl { color: var(--text-muted); font-weight: 500; }
 
+/* جدول الاستهلاك السنوي للأقساط */
 .table-scroll-container {
   overflow-x: auto;
-  background: var(--bg-deep);
-  border-radius: 14px;
+  background: var(--bg-box);
+  border-radius: 16px;
   border: 1px solid var(--border-glow);
   margin-top: 15px;
 }
@@ -221,9 +300,10 @@ input::placeholder {
   border-collapse: collapse;
   text-align: center;
   font-size: 13px;
+  min-width: 500px;
 }
-.report-data-table th { background: #1f2937; color: var(--brand-blue); padding: 12px; font-weight: 600; border-bottom: 1px solid var(--border-glow); }
-.report-data-table td { padding: 11px; border-bottom: 1px solid var(--border-glow); }
+.report-data-table th { background: rgba(56, 189, 248, 0.05); color: var(--brand-blue); padding: 14px; font-weight: 700; border-bottom: 1px solid var(--border-glow); }
+.report-data-table td { padding: 12px; border-bottom: 1px solid var(--border-glow); color: var(--text-pure); }
 </style>
 </head>
 <body>
@@ -231,56 +311,59 @@ input::placeholder {
 <div class="platform-container">
   
   <div class="platform-header">
-    <h1>    </h1>
-    <p>   </p>
+    <button class="theme-toggle-btn" onclick="togglePlatformTheme()">🌓 تبديل المظهر</button>
+    <h1></h1>
+    <p></p>
   </div>
 
   <div class="architecture-grid">
     
     <div class="workspace-card">
-      <div class="section-main-title">📥  الملف المالي العقاري</div>
+      <div class="section-main-title">📥 بارامترات الملف المالي العقاري</div>
       
-      <div class="input-block">
-        <label>حالة الاستحقاق الضريبي للمسكن الأول</label>
-        <select id="taxStatus">
-          <option value="exempt">نعم - العقار مسكن أول (مشمول بالإعفاء من الضريبة)</option>
-          <option value="taxable">لا - عقار إضافي / استثماري (يخضع لضريبة التصرفات 5%)</option>
-        </select>
-      </div>
+      <div class="inputs-sub-grid">
+        <div class="input-block full-width">
+          <label>حالة الاستحقاق الضريبي للمسكن الأول</label>
+          <select id="taxStatus">
+            <option value="exempt">نعم - العقار مسكن أول (مشمول بالإعفاء من الضريبة)</option>
+            <option value="taxable">لا - عقار إضافي / استثماري (يخضع لضريبة التصرفات 5%)</option>
+          </select>
+        </div>
 
-      <div class="input-block">
-        <label>القيمة الإجمالية الحالية للعقار المطلوب (ريال)</label>
-        <input id="propValue" placeholder="1,500,000" />
-      </div>
+        <div class="input-block">
+          <label>القيمة الحالية للعقار المطلوب (ريال)</label>
+          <input id="propValue" placeholder="1,500,000" />
+        </div>
 
-      <div class="input-block">
-        <label>الدفعة النقدية الأولى المقدمة + الدعم السكني (ريال)</label>
-        <input id="cashDown" placeholder="300,000" />
-      </div>
+        <div class="input-block">
+          <label>الدفعة الأولى النقدية + الدعم (ريال)</label>
+          <input id="cashDown" placeholder="300,000" />
+        </div>
 
-      <div class="input-block">
-        <label>صافي راتبك الشهري الحالي المودع في البنك (ريال)</label>
-        <input id="userSalary" placeholder="18,500" />
-      </div>
+        <div class="input-block">
+          <label>صافي راتبك الشهري المودع (ريال)</label>
+          <input id="userSalary" placeholder="18,500" />
+        </div>
 
-      <div class="input-block">
-        <label>إجمالي التزاماتك وأقساطك الشهرية القائمة حالياً (ريال)</label>
-        <input id="userDebts" placeholder="0" />
-      </div>
+        <div class="input-block">
+          <label>التزاماتك وأقساطك القائمة (ريال)</label>
+          <input id="userDebts" placeholder="0" />
+        </div>
 
-      <div class="input-block">
-        <label>مدة عقد التمويل العقاري المطلوبة (بالأشهر)</label>
-        <input id="loanMonthsDuration" placeholder="240" />
-      </div>
+        <div class="input-block">
+          <label>مدة عقد التمويل المطلوبة (أشهر)</label>
+          <input id="loanMonthsDuration" placeholder="240" />
+        </div>
 
-      <div class="input-block">
-        <label>عدد السنوات المتبقية لك في الخدمة حتى التقاعد (سنة)</label>
-        <input id="serviceYearsLeft" placeholder="15" />
-      </div>
+        <div class="input-block">
+          <label>سنوات الخدمة المتبقية للتقاعد (سنة)</label>
+          <input id="serviceYearsLeft" placeholder="15" />
+        </div>
 
-      <div class="input-block">
-        <label>معدل النسبة السنوية للمرابحة البنكية APR (%)</label>
-        <input id="interestRateApr" placeholder="4.25" />
+        <div class="input-block full-width">
+          <label>معدل النسبة السنوية للمرابحة APR (%)</label>
+          <input id="interestRateApr" placeholder="4.25" step="0.01" />
+        </div>
       </div>
 
       <button class="action-btn-trigger" onclick="calculateFinancialSystem()">
@@ -292,7 +375,17 @@ input::placeholder {
       <div class="section-main-title">⚖️ وثيقة القرار التنفيذي الحاسم للملف المالي</div>
 
       <div id="verdictShield" class="verdict-banner verdict-initial">
-        الرجاء تعبئة بيانات الملف الائتماني على اليمين لتوليد الحكم الاستشاري المركزي وتحديد الأهلية.
+        الرجاء تعبئة بيانات الملف الائتماني لتوليد الحكم الاستشاري المركزي وتحديد الأهلية.
+      </div>
+
+      <div class="dsr-gauge-container">
+        <div class="dsr-gauge-info">
+          <span>مؤشر عبء الدين (DSR %):</span>
+          <span id="dsrGaugeValue">0%</span>
+        </div>
+        <div class="dsr-bar-bg">
+          <div id="dsrGaugeFill" class="dsr-bar-fill"></div>
+        </div>
       </div>
 
       <div class="pillar-cube-grid">
@@ -311,19 +404,21 @@ input::placeholder {
       </div>
 
       <table class="matrix-summary-table">
-        <tr style="background-color: rgba(16, 185, 129, 0.08); font-weight: bold;"><td class="lbl" style="color: var(--brand-green);">💰 سعر العقار المناسب والآمن لميزانيتك:</td><td class="val" id="valRecommendedProperty" style="color: var(--brand-green);">0 ريال</td></tr>
+        <tr style="background-color: rgba(52, 211, 153, 0.06); font-weight: bold;">
+          <td class="lbl" style="color: var(--brand-green);">💰 سعر العقار المناسب والآمن لميزانيتك:</td>
+          <td class="val" id="valRecommendedProperty" style="color: var(--brand-green);">0 ريال</td>
+        </tr>
         <tr><td class="lbl">أصل مبلغ التمويل العقاري المطلوب من البنك:</td><td class="val" id="valPrincipal">0 ريال</td></tr>
         <tr><td class="lbl">إجمالي أرباح التمويل التراكمية طوال العقد:</td><td class="val" id="valTotalInterest">0 ريال</td></tr>
         <tr><td class="lbl">المجموع الكلي للالتزام المالي المقفل (أصل + أرباح):</td><td class="val" id="valGrandTotal">0 ريال</td></tr>
-        <tr><td class="lbl">نسبة عبء الدين الإجمالية الحالية (DSR %):</td><td class="val" id="valDsrPercentage" style="color: var(--brand-blue);">0%</td></tr>
-        <tr><td class="lbl">(سعي + رسوم + ضريبة إن وجدت):</td><td class="val" id="valHiddenCosts" style="color: var(--brand-rose);">0 ريال</td></tr>
+        <tr><td class="lbl">الكاش الأولي المستحق فوراً (سعي + رسوم + ضريبة):</td><td class="val" id="valHiddenCosts" style="color: var(--brand-rose);">0 ريال</td></tr>
       </table>
 
       <button class="btn-share" onclick="copyCleanReport()">
         📋 نسخ التقرير المالي للمشاركة (نص صافي بدون خطوط أو ألوان)
       </button>
 
-      <div class="section-main-title" style="margin-top: 25px; font-size: 15px; border-bottom: 1px solid var(--border-glow); padding-bottom: 6px;">
+      <div class="section-main-title" style="margin-top: 30px; font-size: 15px; border-bottom: 1px solid var(--border-glow); padding-bottom: 6px;">
         📅 الخطة الهيكلية لتلاشي رصيد المديونية واستهلاك الأرباح سنوياً
       </div>
       <div class="table-scroll-container">
@@ -357,6 +452,12 @@ const getBox = id => document.getElementById(id);
 function cleanNum(v) { return parseFloat(String(v).replace(/,/g, '')) || 0; }
 function formatMoney(v) { return Math.round(v).toLocaleString('en-US'); }
 
+// ميزة تحويل المظهر (Dark / Light)
+function togglePlatformTheme() {
+  document.body.classList.toggle('light-theme');
+}
+
+// قناع حماية وتنسيق المدخلات لمنع الأخطاء الإملائية
 function applyInputMask(id) {
   const element = getBox(id);
   element.addEventListener('input', () => {
@@ -376,12 +477,13 @@ function calculateFinancialSystem() {
   const serviceYears = cleanNum(getBox('serviceYearsLeft').value);
   const apr = parseFloat(getBox('interestRateApr').value) / 100 || 0;
 
+  // التحقق المؤسسي من اكتمال البيانات الحيوية
   if (!price || !salary || !months || !serviceYears) {
-    alert("تنبيه نظام الأمان: يرجى إدخال كافة المتغيرات الحيوية لضمان إصدار قرار سليم.");
+    alert("تنبيه نظام الأمان: يرجى إدخال كافة المتغيرات الأساسية لضمان إصدار قرار ائتماني سليم.");
     return;
   }
 
-  // 1. حسابات التمويل الفعلي المدخل
+  // الحسابات المالية الأساسية
   const principalAmount = price - down;
   const cumulativeInterestCost = principalAmount * apr * (months / 12);
   const grandTotalDebt = principalAmount + cumulativeInterestCost;
@@ -390,12 +492,13 @@ function calculateFinancialSystem() {
   const totalDSR = (aggregatedMonthlyObligations / salary) * 100;
   const netRemainingCash = salary - aggregatedMonthlyObligations;
 
-  // 2. هندسة السعر المناسب والآمن للعقار (بناء على قسط مستهدف لا يتجاوز 5500 ريال)
+  // هندسة السعر المناسب والآمن للعقار عكسياً بناء على قسط مستهدف لا يتجاوز 5500 ريال
   const targetSafeInstallment = 5500;
   const safeTotalDebt = targetSafeInstallment * months;
   const safePrincipal = safeTotalDebt / (1 + (apr * (months / 12)));
   const recommendedPropertyPrice = safePrincipal + down;
 
+  // المصاريف المخفية والأولية
   const propertyTax = (taxStatus === 'taxable') ? price * 0.05 : 0;
   const brokerageFee = price * 0.025;
   const administrativeFees = 5000;
@@ -403,10 +506,9 @@ function calculateFinancialSystem() {
 
   const loanYears = months / 12;
   const retirementOverlapYears = Math.max(0, loanYears - serviceYears);
-
   const hijriDateResult = computeTargetHijriDate(months);
 
-  // تحديث شاشة العرض
+  // تحديث واجهة المستخدم بالنتائج والأرقام
   getBox('displayInstallment').textContent = formatMoney(monthlyInstallmentValue) + " ريال";
   getBox('displayNetCash').textContent = formatMoney(netRemainingCash) + " ريال";
   getBox('displayHijriDate').textContent = hijriDateResult;
@@ -415,9 +517,22 @@ function calculateFinancialSystem() {
   getBox('valPrincipal').textContent = formatMoney(principalAmount) + " ريال";
   getBox('valTotalInterest').textContent = formatMoney(cumulativeInterestCost) + " ريال";
   getBox('valGrandTotal').textContent = formatMoney(grandTotalDebt) + " ريال";
-  getBox('valDsrPercentage').textContent = totalDSR.toFixed(1) + "%";
   getBox('valHiddenCosts').textContent = formatMoney(aggregateHiddenCosts) + " ريال";
 
+  // تحريك شريط العداد التفاعلي DSR Gauge وتغيير لونه تلقائياً
+  const dsrGaugeFill = getBox('dsrGaugeFill');
+  getBox('dsrGaugeValue').textContent = totalDSR.toFixed(1) + "%";
+  dsrGaugeFill.style.width = Math.min(totalDSR, 100) + "%";
+  
+  if (totalDSR <= 45) {
+    dsrGaugeFill.style.backgroundColor = "var(--brand-green)";
+  } else if (totalDSR <= 60) {
+    dsrGaugeFill.style.backgroundColor = "var(--brand-amber)";
+  } else {
+    dsrGaugeFill.style.backgroundColor = "var(--brand-rose)";
+  }
+
+  // منظومة تحليل القرار الحاسم بناءً على سقف الأقساط والقواعد المعتمدة
   const banner = getBox('verdictShield');
   const estimatedRetirementSalary = salary * 0.70;
   const dsrAtRetirementTime = (monthlyInstallmentValue / estimatedRetirementSalary) * 100;
@@ -451,7 +566,7 @@ function calculateFinancialSystem() {
   
   banner.innerHTML = `<b>${textVerdict}</b>`;
 
-  // حفظ المعطيات للمشاركة الفورية الصافية شاملة السعر المناسب والآمن للعقار
+  // حفظ الكائن المالي الصافي المخصص لغرض التصدير النقي للمشاركة
   globalReportData = {
     verdict: textVerdict,
     recommendedPrice: formatMoney(recommendedPropertyPrice) + " ريال",
@@ -469,7 +584,7 @@ function calculateFinancialSystem() {
   buildAmortizationScheduleRows(principalAmount, cumulativeInterestCost, loanYears, monthlyInstallmentValue);
 }
 
-// محرك التاريخ الهجري الرقمي الصرف
+// محرك التاريخ الهجري الرقمي الصرف (أرقام فقط بلا نصوص إضافية)
 function computeTargetHijriDate(monthsToAdd) {
   const targetDate = new Date();
   targetDate.setMonth(targetDate.getMonth() + Math.round(monthsToAdd));
@@ -500,7 +615,7 @@ function computeTargetHijriDate(monthsToAdd) {
   }
 }
 
-// تصدير النتائج نصياً للمشاركة بدون هوامش أو ألوان زائدة
+// محرك تصدير التقرير الصافي النقي (بدون أي هوامش أو ألوان أو خطوط إضافية مشتتة)
 function copyCleanReport() {
   if (!globalReportData) {
     alert("الرجاء تشغيل معالجة البيانات أولاً لإنشاء التقرير.");
@@ -531,7 +646,7 @@ ${globalReportData.verdict}
 ----------------------------------`;
 
   navigator.clipboard.writeText(textBodyReport).then(() => {
-    alert("📋 تم نسخ التقرير المالي بنجاح! متضمنًا سعر العقار المناسب، وجاهز للمشاركة بدون أي تشتيت بصري.");
+    alert("📋 تم نسخ التقرير المالي المحدث بنجاح! جاهز تماماً للصق والمشاركة بدون أي تشتيت بصري أو خطوط إضافية.");
   }).catch(err => {
     const textArea = document.createElement("textarea");
     textArea.value = textBodyReport;
@@ -572,8 +687,8 @@ function buildAmortizationScheduleRows(principal, totalInterest, totalYears, mon
       <td>${currentYear}</td>
       <td>${formatMoney(openingBalanceForYear)} ريال</td>
       <td>${formatMoney(runningAccumulatedPaid)} ريال</td>
-      <td style="color: var(--brand-rose);">${formatMoney(staticYearlyProfitComponent)} ريال</td>
-      <td style="color: var(--brand-green); font-weight:bold;">${formatMoney(totalDebtRemaining)} ريال</td>
+      <td style="color: var(--brand-rose); font-weight: 600;">${formatMoney(staticYearlyProfitComponent)} ريال</td>
+      <td style="color: var(--brand-green); font-weight: 800;">${formatMoney(totalDebtRemaining)} ريال</td>
     `;
     tbody.appendChild(tableRowObj);
   }
